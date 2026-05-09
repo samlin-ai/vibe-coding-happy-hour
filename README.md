@@ -11,7 +11,7 @@ This is a course to grow K12 students to become AI Native builders, starting fro
 4. Practice technical communication skills by Show & Tell.
 
 ## Examples
-Check out games built by students: https://samlin-ai.github.io/vibe-coding-happy-hour/
+Check out these games to see what kids will build: https://samlin-ai.github.io/vibe-coding-happy-hour/
 
 ## 2 hours course
 1. 30 min. Introduction to AI & Gemini CLI for all on Google Meet
