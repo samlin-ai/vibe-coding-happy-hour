@@ -5,7 +5,7 @@ This is a course to grow K12 students to become AI Native builders, starting fro
 1. To spark their curiosity by having fun making games.
 2. Hands on experience not only vibe coding, but also AI augmented understanding to be ready for the brave new world. 
 3. Practice technical collaboration skills as a team of 3-5.
-4. Practice technical communication by Show & Tell.
+4. Practice technical communication skills by Show & Tell.
 
 ## 2 hours course
 1. 30 min. Introduction to AI & Gemini CLI for all on Google Meet 
