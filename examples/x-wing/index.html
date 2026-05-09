@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>X-Wing Trench Run</title>
+    <style>
+        body { margin: 0; overflow: hidden; background-color: #000; font-family: 'Courier New', Courier, monospace; }
+        #hud {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #0f0;
+            pointer-events: none;
+            text-shadow: 0 0 5px #0f0;
+        }
+        #crosshair {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 40px;
+            height: 40px;
+            border: 2px solid #0f0;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+        #crosshair::before, #crosshair::after {
+            content: '';
+            position: absolute;
+            background-color: #0f0;
+        }
+        #crosshair::before { top: 50%; left: -10px; width: 10px; height: 2px; margin-top: -1px; }
+        #crosshair::after { top: 50%; right: -10px; width: 10px; height: 2px; margin-top: -1px; }
+        #msg {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+            color: #0f0;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div id="hud">
+        <div>SCORE: <span id="score">0</span></div>
+        <div>SHIELDS: <span id="shields">100</span>%</div>
+    </div>
+    <div id="crosshair"></div>
+    <div id="msg">WASD/ARROWS to steer | SPACE to fire</div>
+    <div id="game-over" style="display:none; position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); color:#f00; font-size:3em; text-align:center; text-shadow:0 0 10px #f00;">
+        GAME OVER<br>
+        <span style="font-size:0.4em; color:#0f0;">Refresh to Restart</span>
+    </div>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+
+        // --- Configuration ---
+        const TRENCH_WIDTH = 40;
+        const TRENCH_HEIGHT = 20;
+        const TRENCH_LENGTH = 100;
+        const SPEED = 60;
+        const LASER_SPEED = 250;
+
+        // --- Game State ---
+        let score = 0;
+        let shields = 100;
+        let isGameOver = false;
+        let keys = {};
+        let lasers = [];
+        let trenchSegments = [];
+        let obstacles = [];
+
+        // --- Three.js Setup ---
+        const scene = new THREE.Scene();
+        scene.fog = new THREE.Fog(0x000000, 50, 250);
+
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(0, 5, 0);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        document.body.appendChild(renderer.domElement);
+
+        const ambientLight = new THREE.AmbientLight(0x404040, 2);
+        scene.add(ambientLight);
+
+        const sunLight = new THREE.DirectionalLight(0xffffff, 1);
+        sunLight.position.set(5, 10, 7);
+        scene.add(sunLight);
+
+        // --- Materials ---
+        const wallMaterial = new THREE.MeshPhongMaterial({ 
+            color: 0x444444, 
+            specular: 0x111111, 
+            shininess: 30,
+            flatShading: true
+        });
+
+        const obstacleMaterial = new THREE.MeshPhongMaterial({ 
+            color: 0x666666, 
+            specular: 0x222222, 
+            shininess: 50,
+            flatShading: true
+        });
+
+        // --- Trench Generation ---
+        function createTrenchSegment(zPos) {
+            const group = new THREE.Group();
+            
+            // Floor
+            const floorGeo = new THREE.PlaneGeometry(TRENCH_WIDTH, TRENCH_LENGTH);
+            const floor = new THREE.Mesh(floorGeo, wallMaterial);
+            floor.rotation.x = -Math.PI / 2;
+            group.add(floor);
+
+            // Left Wall
+            const wallGeo = new THREE.PlaneGeometry(TRENCH_LENGTH, TRENCH_HEIGHT);
+            const leftWall = new THREE.Mesh(wallGeo, wallMaterial);
+            leftWall.position.set(-TRENCH_WIDTH / 2, TRENCH_HEIGHT / 2, 0);
+            leftWall.rotation.y = Math.PI / 2;
+            group.add(leftWall);
+
+            // Right Wall
+            const rightWall = new THREE.Mesh(wallGeo, wallMaterial);
+            rightWall.position.set(TRENCH_WIDTH / 2, TRENCH_HEIGHT / 2, 0);
+            rightWall.rotation.y = -Math.PI / 2;
+            group.add(rightWall);
+
+            // Add some detail "greebles"
+            for (let i = 0; i < 15; i++) {
+                const greebleGeo = new THREE.BoxGeometry(
+                    Math.random() * 2 + 1, 
+                    Math.random() * 2 + 1, 
+                    Math.random() * 5 + 2
+                );
+                const greeble = new THREE.Mesh(greebleGeo, wallMaterial);
+                const wallSide = Math.random() > 0.5 ? 1 : -1;
+                greeble.position.set(
+                    wallSide * (TRENCH_WIDTH / 2 - 0.5), 
+                    Math.random() * TRENCH_HEIGHT, 
+                    (Math.random() - 0.5) * TRENCH_LENGTH
+                );
+                group.add(greeble);
+            }
+
+            group.position.z = zPos;
+            scene.add(group);
+            return group;
+        }
+
+        // Initialize trench segments
+        for (let i = 0; i < 5; i++) {
+            trenchSegments.push(createTrenchSegment(-i * TRENCH_LENGTH));
+        }
+
+        // --- Obstacles ---
+        function createObstacle(zPos) {
+            const width = Math.random() * 12 + 4;
+            const height = Math.random() * 12 + 4;
+            const geo = new THREE.BoxGeometry(width, height, 5);
+            const mesh = new THREE.Mesh(geo, obstacleMaterial);
+            mesh.position.set(
+                (Math.random() - 0.5) * (TRENCH_WIDTH - width),
+                Math.random() * (TRENCH_HEIGHT - height) + height/2,
+                zPos
+            );
+            // Add a bounding box for collision
+            mesh.userData.bounds = new THREE.Box3().setFromObject(mesh);
+            scene.add(mesh);
+            return mesh;
+        }
+
+        // --- Weapons ---
+        function fireLaser() {
+            if (isGameOver) return;
+            const geo = new THREE.CylinderGeometry(0.1, 0.1, 5);
+            geo.rotateX(Math.PI / 2);
+            const mat = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+            
+            // Fire two lasers (left and right)
+            [-2, 2].forEach(side => {
+                const laser = new THREE.Mesh(geo, mat);
+                laser.position.copy(camera.position);
+                laser.position.x += side;
+                laser.position.y -= 1;
+                scene.add(laser);
+                lasers.push(laser);
+            });
+        }
+
+        // --- Controls ---
+        window.addEventListener('keydown', (e) => {
+            keys[e.code] = true;
+            if (e.code === 'Space') fireLaser();
+        });
+        window.addEventListener('keyup', (e) => keys[e.code] = false);
+
+        // --- Animation Loop ---
+        const clock = new THREE.Clock();
+
+        function animate() {
+            requestAnimationFrame(animate);
+            if (isGameOver) return;
+
+            const delta = clock.getDelta();
+            const moveStep = SPEED * delta;
+            
+            // Move environment
+            trenchSegments.forEach(seg => {
+                seg.position.z += moveStep;
+                if (seg.position.z > TRENCH_LENGTH) {
+                    seg.position.z -= TRENCH_LENGTH * 5;
+                }
+            });
+
+            obstacles.forEach((obs, index) => {
+                obs.position.z += moveStep;
+                obs.userData.bounds.setFromObject(obs); // Update bounding box
+
+                // Player collision check
+                const playerPos = camera.position;
+                if (Math.abs(obs.position.z - playerPos.z) < 3) {
+                    if (obs.userData.bounds.containsPoint(playerPos)) {
+                        takeDamage(25);
+                        scene.remove(obs);
+                        obstacles.splice(index, 1);
+                    }
+                }
+
+                if (obs.position.z > 20) {
+                    scene.remove(obs);
+                    obstacles.splice(index, 1);
+                }
+            });
+
+            // Spawn obstacles
+            if (Math.random() < 0.015 && obstacles.length < 6) {
+                obstacles.push(createObstacle(-TRENCH_LENGTH * 2.5));
+            }
+
+            // Player movement
+            if (keys['KeyW'] || keys['ArrowUp']) camera.position.y += moveStep * 0.7;
+            if (keys['KeyS'] || keys['ArrowDown']) camera.position.y -= moveStep * 0.7;
+            if (keys['KeyA'] || keys['ArrowLeft']) camera.position.x -= moveStep * 0.7;
+            if (keys['KeyD'] || keys['ArrowRight']) camera.position.x += moveStep * 0.7;
+
+            // Clamp camera position
+            camera.position.x = Math.max(-TRENCH_WIDTH/2 + 2, Math.min(TRENCH_WIDTH/2 - 2, camera.position.x));
+            camera.position.y = Math.max(1.5, Math.min(TRENCH_HEIGHT - 1.5, camera.position.y));
+
+            // Camera tilt and sway
+            const tiltTarget = (keys['KeyA'] || keys['ArrowLeft']) ? 0.15 : (keys['KeyD'] || keys['ArrowRight']) ? -0.15 : 0;
+            camera.rotation.z = THREE.MathUtils.lerp(camera.rotation.z, tiltTarget, 0.1);
+            camera.rotation.y = THREE.MathUtils.lerp(camera.rotation.y, -camera.position.x * 0.01, 0.1);
+
+            // Update lasers
+            lasers.forEach((laser, index) => {
+                laser.position.z -= LASER_SPEED * delta;
+                
+                // Collision with obstacles
+                for (let i = 0; i < obstacles.length; i++) {
+                    const obs = obstacles[i];
+                    if (laser.position.distanceTo(obs.position) < 8) {
+                        if (obs.userData.bounds.containsPoint(laser.position)) {
+                            scene.remove(obs);
+                            scene.remove(laser);
+                            lasers.splice(index, 1);
+                            obstacles.splice(i, 1);
+                            score += 100;
+                            document.getElementById('score').innerText = score;
+                            break;
+                        }
+                    }
+                }
+
+                if (laser.position.z < -500) {
+                    scene.remove(laser);
+                    lasers.splice(index, 1);
+                }
+            });
+
+            renderer.render(scene, camera);
+        }
+
+        function takeDamage(amount) {
+            shields -= amount;
+            document.getElementById('shields').innerText = Math.max(0, shields);
+            
+            // Screen flash
+            renderer.setClearColor(0x330000);
+            setTimeout(() => renderer.setClearColor(0x000000), 50);
+
+            if (shields <= 0) {
+                gameOver();
+            }
+        }
+
+        function gameOver() {
+            isGameOver = true;
+            document.getElementById('game-over').style.display = 'block';
+            document.getElementById('msg').style.display = 'none';
+        }
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        animate();
+    </script>
+</body>
+</html>

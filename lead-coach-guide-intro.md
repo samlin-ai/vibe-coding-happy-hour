@@ -99,6 +99,9 @@ Refresh the browser. Play again.
 **The takeaway — say it after the demo:**
 > "That's it. That's vibe coding. You describe. AI builds. You decide if it's good. You ask for changes. Repeat."
 
+**Bonus - Just ask**
+> "oh, what if I don't even Brave New Worldknow where to start prompting Gemini CLI?"
+
 ---
 
 ### Segment 4 — How Your Hour Will Work (0:22–0:27)
