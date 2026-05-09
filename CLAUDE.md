@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Overview
 
-This is a **content/documentation repository** — there is no application code, build system, or test suite. It contains curriculum materials for coaches running a "Vibe Coding Happy Hour" for K12 students (ages 9–12).
+This is a **content/documentation repository** — there is no application code, build system, or test suite. It contains curriculum materials for coaches running a "Vibe Coding Happy Hour" for K12 students (ages 8–14).
 
 ## Repository Structure
 
@@ -13,7 +13,7 @@ This is a **content/documentation repository** — there is no application code,
 
 ## Content Design Principles
 
-The coach guide is written for **coaches, not kids** — it assumes the coach reads it and translates it for a 9–12 age group. Key design decisions:
+The coach guide is written for **coaches, not kids** — it assumes the coach reads it and translates it for a 8–14 age group. Key design decisions:
 
 - Games must be single-file HTML/CSS/JS (`index.html`) so they open instantly in a browser with no install.
 - Prompts in the guide are meant to be spoken aloud by the coach and typed by the "Prompt Writer" role kid — keep them in plain English, not technical.

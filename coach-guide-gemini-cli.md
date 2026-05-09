@@ -72,7 +72,7 @@ The coach not only guide the team working together to deliver these key results,
 **Step 1 — Generate the game (coach reads this prompt aloud, Prompt Writer types it):**
 
 ```
-We are kids aged 9-12 making our very first game. 
+We are kids aged 8-14 making our very first game. 
 Please create a simple [GAME NAME] game using only HTML, CSS, and JavaScript 
 in a single file called index.html. 
 Rules:
