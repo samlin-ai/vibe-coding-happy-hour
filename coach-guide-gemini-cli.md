@@ -1,11 +1,16 @@
 # Coach Guide: Kids' First Vibe Coding Game with Gemini CLI
-**Ages:** 9–12 | **Team size:** 3–5 kids | **Duration:** 60 minutes
+**Ages:** 8–14 | **Team size:** 3–5 kids | **Duration:** 60 minutes
 
 ---
 
-## What Is Vibe Coding?
+## Key Results
+The coach not only guide the team working together to deliver these key results, but also challenges them to go abvoe and beyond.
 
-Vibe coding means describing what you want in plain English and letting AI write the code for you. The kids are the **game designers** — they decide what the game does. Gemini CLI is their coding assistant.
+- [ ] Name of the team
+- [ ] Brainstorm the idea of the game & prompts
+- [ ] Brainstorm the improvements & prompts
+- [ ] Undstand how the game works & the design
+- [ ] Rehearse the show & tell
 
 ---
 
@@ -27,40 +32,26 @@ Vibe coding means describing what you want in plain English and letting AI write
 
 ## Session Timeline
 
-### Segment 1 — Ignite the Idea (0:00–0:10)
+### Segment 1 — Assemble the Team  (0:00–0:05)
 
-**Goal:** Get the kids excited and pick a game concept together.
+**Goal:** Get the kids to know each other and name the team together.
+
+
+### Segment 1 — Ignite the Idea (0:05–0:15)
+
+**Goal:** Get the kids excited and pick a name and a game concept together.
 
 **Say to the team:**
 > "You are all game designers today. In one hour, you will build a real game that anyone can play. The AI will write the code — your job is to tell it WHAT to build."
 
-**Activity — 2-minute brainstorm:**
-1. Ask each kid: *"What is your favorite simple game?"*
-2. Write their ideas on a whiteboard or sticky notes.
-3. Vote by show of hands. Pick the winner.
-4. Ask: *"What happens when you win? What happens when you lose?"*
+**Activity — 3-minute brainstorm:**
+1. Ask each kid to think and write down on sticky note by themself for a minute: *"What is your favorite game?"*
+2. Each tell the answer, and then group them on a whiteboard as a team.
+3. Vote by show of hands to pick top two.
+4. Combe the top two into a new game as a group.
+5. Ask: *"What happens when you win? What happens when you lose?"*
 
 **Coach tip:** Steer toward web-based games (HTML + JavaScript) — they run instantly in a browser, no install needed.
-
----
-
-### Segment 2 — Meet Gemini CLI (0:10–0:15)
-
-**Goal:** Kids see the tool and understand how to talk to it.
-
-**Demonstrate at the terminal:**
-```
-gemini
-```
-
-Type this first prompt out loud so kids can see:
-```
-Hello! We are a team of kids making our first game. 
-Can you say hi and tell us what you can help us build?
-```
-
-**Explain:**
-> "We type what we want, press Enter, and Gemini answers. We can ask it to write code, fix mistakes, or add new features. Let's go!"
 
 ---
 
@@ -119,7 +110,7 @@ Please fix it and show me the updated index.html.
 
 ---
 
-### Segment 4 — Make It Yours (0:35–0:50)
+### Segment 4 — Make It Yours (0:35–0:45)
 
 **Goal:** Each kid adds one personal touch. This is where creativity explodes.
 
@@ -152,7 +143,17 @@ Add a "Play Again" button on the Game Over screen.
 
 ---
 
-### Segment 5 — Show & Tell (0:50–1:00)
+### Segment 5 — Make It Yours (0:45–0:53)
+
+**Goal:** Undersatnd how the game works and is built.
+
+1. Ask the team think and guess how the game works.
+2. Guide the team to ask Gemini CLI to explain how the game works to [x] years old.
+3. Guide the team to ask Gemini CLI to create a system design diagram, and for them to ask follow up questions.
+
+---
+
+### Segment 6 — Rehearse Show & Tell (0:53–1:00)
 
 **Goal:** Celebrate what they built and reflect.
 
