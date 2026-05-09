@@ -8,7 +8,8 @@ This is a course to grow K12 students to become AI Native builders, starting fro
 4. Practice technical communication skills by Show & Tell.
 
 ## 2 hours course
-1. 30 min. Introduction to AI & Gemini CLI for all on Google Meet 
+1. 30 min. Introduction to AI & Gemini CLI for all on Google Meet
+    - The lead coach kicks off the event according to [the lead coach guide](./lead-coach-guide-intro.md).
 2. 60 min. Breakout Session: Vibe Coding Your First Game
     - 3-5 students with 1 coach in person or virtually in a breakout room
     - A coach guides the team to build their first game according to [the instructions](./coach-guide-gemini-cli.md). 
