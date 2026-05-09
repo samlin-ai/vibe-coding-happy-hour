@@ -1,16 +1,16 @@
 # Lead Coach Guide: Introduction to AI & Gemini CLI
-**Audience:** All kids (ages 9–12) + breakout coaches | **Format:** Google Meet (everyone) | **Duration:** 30 minutes
+**Audience:** All kids (ages 8–14) + breakout coaches | **Format:** Google Meet (everyone) | **Duration:** 30 minutes
 
 ---
 
 ## Key Results
-The lead coach kicks off the event so every kid leaves this session knowing what AI is, what Gemini CLI does, and exactly what they will do in their breakout room.
+The lead coach kicks off the event and introduce AI and Gemini CLI to get eveyone ready to the vibe coding breakout session.
 
-- [ ] Every kid feels welcomed and excited
-- [ ] Every kid can say in their own words what AI is
-- [ ] Every kid has seen Gemini CLI write real code live
-- [ ] Every kid knows their breakout room and the show & tell expectation
-- [ ] Breakout coaches have been introduced by name
+- [ ] Everyone feels welcomed and excited
+- [ ] Coaches have been introduced by name
+- [ ] Kids know their breakout room and the show & tell expectation
+- [ ] Kids know what AI is and how to use Gemini CLI
+- [ ] Kids get some ideas of vibe coding games from a few examples
 
 ---
 
@@ -39,6 +39,7 @@ The lead coach kicks off the event so every kid leaves this session knowing what
 1. Ask kids to turn cameras on and wave.
 2. Quick poll in chat: *"Type one game you love."* (Coach reads a few aloud.)
 3. Introduce yourself in one sentence: name, where you're from, your favorite game as a kid.
+4. Each coach introduce themself in one sentence: name, where you're from, your favorite game as a kid.
 
 **Coach tip:** Don't lecture. Energy now sets the tone for the whole two hours. If kids are quiet, ask: *"Who has played a game today already?"* — hands always go up.
 
