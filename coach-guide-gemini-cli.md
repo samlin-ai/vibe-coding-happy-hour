@@ -4,12 +4,12 @@
 ---
 
 ## Key Results
-The coach not only guide the team working together to deliver these key results, but also challenges them to go abvoe and beyond.
+The coach not only guides the team in working together to deliver these key results, but also challenges them to go above and beyond.
 
 - [ ] Name of the team
 - [ ] Brainstorm the idea of the game & prompts
 - [ ] Brainstorm the improvements & prompts
-- [ ] Undstand how the game works & the design
+- [ ] Understand how the game works & the design
 - [ ] Rehearse the show & tell
 
 ---
@@ -32,12 +32,12 @@ The coach not only guide the team working together to deliver these key results,
 
 ## Session Timeline
 
-### Segment 1 — Assemble the Team  (0:00–0:05)
+### Segment 1 — Assemble the Team (0:00–0:05)
 
 **Goal:** Get the kids to know each other and name the team together.
 
 
-### Segment 1 — Ignite the Idea (0:05–0:15)
+### Segment 2 — Ignite the Idea (0:05–0:15)
 
 **Goal:** Get the kids excited and pick a name and a game concept together.
 
@@ -48,7 +48,7 @@ The coach not only guide the team working together to deliver these key results,
 1. Ask each kid to think and write down on sticky note by themself for a minute: *"What is your favorite game?"*
 2. Each tell the answer, and then group them on a whiteboard as a team.
 3. Vote by show of hands to pick top two.
-4. Combe the top two into a new game as a group.
+4. Combine the top two into a new game as a group.
 5. Ask: *"What happens when you win? What happens when you lose?"*
 
 **Coach tip:** Steer toward web-based games (HTML + JavaScript) — they run instantly in a browser, no install needed.
@@ -143,11 +143,11 @@ Add a "Play Again" button on the Game Over screen.
 
 ---
 
-### Segment 5 — Make It Yours (0:45–0:53)
+### Segment 5 — Understand the Game (0:45–0:53)
 
-**Goal:** Undersatnd how the game works and is built.
+**Goal:** Understand how the game works and is built.
 
-1. Ask the team think and guess how the game works.
+1. Ask the team to think and guess how the game works.
 2. Guide the team to ask Gemini CLI to explain how the game works to [x] years old.
 3. Guide the team to ask Gemini CLI to create a system design diagram, and for them to ask follow up questions.
 
