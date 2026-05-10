@@ -36,7 +36,7 @@ If a student is stuck, ask them to "vibe" it out loud to you. "What do you want 
 
 ### Handling "Hallucinations"
 
-Sometimes Gemini might suggest a complex library. Remind students to ask for "Vanilla JavaScript only" to keep the project simple and easy to read.
+Sometimes Gemini might suggest a complex library. Remind students to ask for "no other framework, please." to keep the project simple and easy to read.
 
 
 ### The "Show and Tell"
@@ -47,8 +47,8 @@ In the last 15 minutes, have every student "Playtest" another student's game. Th
 
 Coach students not just use AI to complete the tasks, but also use AI to augment their understanding.
 
-- "Add a 'Start Game' button so it doesn't begin immediately."
-- "Ask Gemini to explain how the game works to [x] years old."
-- "Ask Gemini to explain the design."
-- "Ask Gemini to explain the change and tradeoffs."
-- "Can you explain what this part of the code does in plain English?" (Great for learning while doing!)
+- "please add 'Start Game' button so it doesn't begin immediately."
+- "please explain how the game works to 7 years old."
+- "please explain the design with a ASCII diagram."
+- "please explain the change and tradeoffs."
+- "Can you please explain what this part of the code does in plain English?" (Great for learning while doing!)
