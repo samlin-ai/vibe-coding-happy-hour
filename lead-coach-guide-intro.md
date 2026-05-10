@@ -99,8 +99,14 @@ Refresh the browser. Play again.
 **The takeaway — say it after the demo:**
 > "That's it. That's vibe coding. You describe. AI builds. You decide if it's good. You ask for changes. Repeat."
 
-**Bonus - Just ask**
-> "oh, what if I don't even Brave New Worldknow where to start prompting Gemini CLI?"
+**Pro tip:** The Prompting Framework: "Role, Goal, Context".
+> "You are an expert game developer. Please build a simple web game where a panda catches falling taco. It should be colorful, fun, and work in a browser."
+
+Ask follow up questions, such as:
+> "Why will this framework work better?"
+
+**Bonus:** Meta Prompting - just ask it to uplevel your prompt:
+> "You are the best prompt engineer. Please create a prompt to build a simple web game where a panda catches falling taco. The game should be colorful, fun, and work in a browser."
 
 ---
 
