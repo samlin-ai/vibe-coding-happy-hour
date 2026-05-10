@@ -3,3 +3,8 @@ Do you know Tetris is the best-selling video games, [seales: 520m](https://en.wi
 
 ## Prompt
 > "Build a simple Tetris web game without frameworks."
+
+### Follow up questions
+
+1. Why does this simple prompt work better?
+2. Which is the magic keyword & why?
