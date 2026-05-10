@@ -22,3 +22,33 @@ Check out these games to see what kids will build: https://samlin-ai.github.io/v
     - A coach guides the team to build their first game according to [the instructions](./coach-guide-gemini-cli.md). 
 3. 20 min. Show & Tell for each team for all on Google Meet
 4. 10 min. Closing
+
+## Why use the CLI for K12?
+1. Reduced Friction: No more manual copy-pasting. If they want a change, they run the command again or use a "fix" command.
+2. Tech Literacy: Students learn basic file system navigation (cd, ls, mkdir) while doing something fun.
+3. Automation: They see how AI can be used as a tool inside other programs, rather than just a chatbot.
+
+## Coaching Tips for Success
+
+### The "Rubber Duck" Method
+
+If a student is stuck, ask them to "vibe" it out loud to you. "What do you want to happen when the taco hits the floor?" Once they say it, tell them: "Great—now tell Gemini exactly that."
+
+### Handling "Hallucinations"
+
+Sometimes Gemini might suggest a complex library. Remind students to ask for "Vanilla JavaScript only" to keep the project simple and easy to read.
+
+
+### The "Show and Tell"
+
+In the last 15 minutes, have every student "Playtest" another student's game. This builds a sense of community and allows them to see different "vibes" in action.
+
+### Essential "Cheat Sheet" Prompts for Students:
+
+Coach students not just use AI to complete the tasks, but also use AI to augment their understanding.
+
+- "Add a 'Start Game' button so it doesn't begin immediately."
+- "Ask Gemini to explain how the game works to [x] years old."
+- "Ask Gemini to explain the design."
+- "Ask Gemini to explain the change and tradeoffs."
+- "Can you explain what this part of the code does in plain English?" (Great for learning while doing!)
