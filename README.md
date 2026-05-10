@@ -1,8 +1,9 @@
 # Vibe Coding Happy Hour
 This is a course to grow K12 students to become AI Native builders, starting from vibe coding their first game.
 
-![CS Equaity AI](./res/csequityai.png)
-**Powered by: [CSequityAI.org](https://www.csequityai.org/)** 
+<img src="./res/csequityai.png" width="360">
+
+**Brought to you by: [CSequityAI.org](https://www.csequityai.org/)** 
 
 ## Goals
 1. To spark their curiosity by having fun making games.
