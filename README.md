@@ -35,7 +35,7 @@ Check out these games to see what kids will build: https://samlin-ai.github.io/v
 1. Challenge students to use a "generation-then-comprehension" approach: let the AI generate the code, but follow up with specific questions to ensure they fully understand the logic before they move on.
 2. Focus on conceptual inquiries: One of the most effective and efficient ways to use AI is to only ask conceptual questions.
 
-![Alt text](https://www.anthropic.com/_next/image?url=https%3A%2F%2Fwww-cdn.anthropic.com%2Fimages%2F4zrzovbb%2Fwebsite%2Fab5167a53ff0de956bd500b01b30d8aba028d843-4584x2580.png&w=640&q=75)
+<img src="./res/modesOfAiUsage.webp" width="640">
 
 Source: [How AI Impacts Skill Formation: 6 AI interaction personas](https://www.anthropic.com/research/AI-assistance-coding-skills)
 
