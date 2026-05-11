@@ -60,7 +60,7 @@ Sometimes Gemini might suggest a complex library. Remind students to ask for "no
 
 In the last 15 minutes, have every student "Playtest" another student's game. This builds a sense of community and allows them to see different "vibes" in action.
 
-### Essential "Cheat Sheet" Prompts for Students:
+### "Cheat Sheet" to "Prompt" Students:
 
 Coach students not just use AI to complete the tasks, but also use AI to augment their understanding.
 
