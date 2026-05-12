@@ -4,7 +4,7 @@
 ---
 
 ## Key Results
-The lead coach kicks off the event and introduce AI and Gemini CLI to get eveyone ready to the vibe coding breakout session.
+The lead coach kicks off the event and introduces AI and Gemini CLI to get everyone ready for the vibe coding breakout session.
 
 - [ ] Everyone feels welcomed and excited
 - [ ] Coaches have been introduced by name
@@ -27,7 +27,7 @@ The lead coach kicks off the event and introduce AI and Gemini CLI to get eveyon
 1. Ask kids to turn cameras on and wave.
 2. Quick poll in chat: *"Type one game you love."* (Coach reads a few aloud.)
 3. Introduce yourself in one sentence: name, where you're from, your favorite game as a kid.
-4. Each coach introduce themself in one sentence: name, where you're from, your favorite game as a kid.
+4. Each coach introduces themselves in one sentence: name, where you're from, your favorite game as a kid.
 
 **Coach tip:** Don't lecture. Energy now sets the tone for the whole two hours. If kids are quiet, ask: *"Who has played a game today already?"* — hands always go up.
 
@@ -88,13 +88,13 @@ Refresh the browser. Play again.
 > "That's it. That's vibe coding. You describe. AI builds. You decide if it's good. You ask for changes. Repeat."
 
 **Pro tip:** The Prompting Framework: "Role, Goal, Context".
-> "You are an expert game developer. Please build a simple web game where a panda catches falling taco. It should be colorful, fun, and work in a browser."
+> "You are an expert game developer. Please build a simple web game where a panda catches falling tacos. It should be colorful, fun, and work in a browser."
 
-Ask follow up questions, such as:
-> "Why will this framework work better?"
+Ask follow-up questions, such as:
+> "Why does this framework work better?"
 
-**Bonus:** Meta Prompting - just ask it to uplevel your prompt:
-> "You are the best prompt engineer. Please create a prompt to build a simple web game where a panda catches falling taco. The game should be colorful, fun, and work in a browser."
+**Bonus:** Meta Prompting — just ask it to level up your prompt:
+> "You are the best prompt engineer. Please create a prompt to build a simple web game where a panda catches falling tacos. The game should be colorful, fun, and work in a browser."
 
 ---
 

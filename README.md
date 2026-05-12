@@ -9,7 +9,7 @@ This is a course to grow K12 students to become AI-native builders, starting fro
 
 ## Goals
 1. To spark their curiosity by having fun making games.
-2. Hands-on experience not only vibe coding, but also AI-augmented understanding to be ready for the brave new world.
+2. Hands-on experience with not only vibe coding, but also AI-augmented understanding to be ready for the brave new world.
 3. Practice technical collaboration skills as a team of 3–5.
 4. Practice technical communication skills by Show & Tell.
 
@@ -23,7 +23,7 @@ Check out these games to see what kids will build: https://samlin-ai.github.io/v
     - The lead coach kicks off the event according to [the lead coach guide](./lead-coach-guide-intro.md).
 2. 60 min. Breakout Session: Vibe Coding Your First Game
     - 3-5 students with 1 coach in person or virtually in a breakout room
-    - A coach guides the team to build their first game according to [the instructions](./coach-guide-gemini-cli.md). 
+    - A coach guides the team to build their first game according to [the instructions](./coach-guide-gemini-cli.md).
 3. 20 min. Show & Tell for each team for all on Google Meet
 4. 10 min. Closing
 
@@ -46,11 +46,11 @@ Source: [How AI Impacts Skill Formation: 6 AI interaction personas](https://www.
 
 #### Examples
 
-> "please explain how the game works to 7 years old."
+> "Please explain how the game works to a 7-year-old."
 
-> "please explain the design with a ASCII diagram."
+> "Please explain the design with an ASCII diagram."
 
-> "please explain the change and tradeoffs."
+> "Please explain the change and trade-offs."
 
 
 ### The "Rubber Duck" Method
@@ -59,19 +59,19 @@ If a student is stuck, ask them to "vibe" it out loud to you. "What do you want 
 
 ### Handling "Hallucinations"
 
-Sometimes Gemini might suggest a complex library. Remind students to ask for "no other framework, please." to keep the project simple and easy to read.
+Sometimes Gemini might suggest a complex library. Remind students to ask for "no other framework, please" to keep the project simple and easy to read.
 
-- For example, Gemini CLI may try to use npm or any tools not yet installed, just say: "please don't use npm or any framework".
+- For example, if Gemini CLI tries to use npm or any tools not yet installed, just say: "Please don't use npm or any framework."
 
 ### The "Show and Tell"
 
-In the last 15 minutes, have every student "Playtest" another student's game. This builds a sense of community and allows them to see different "vibes" in action.
+In the last 15 minutes, have every student "playtest" another student's game. This builds a sense of community and allows them to see different "vibes" in action.
 
-### "Cheat Sheet" to "Prompt" Students:
+### "Cheat Sheet" to "Prompt" Students
 
-Coach students not just use AI to complete the tasks, but also use AI to augment their understanding.
+Coach students not just to use AI to complete the tasks, but also to use AI to augment their understanding.
 
-- "How to add 'Start Game' button so it doesn't begin immediately."
+- "How do I add a 'Start Game' button so the game doesn't begin immediately?"
 - "Can you please explain what this part of the code does in plain English?" (Great for learning while doing!)
 
 ---
@@ -83,13 +83,13 @@ Coach students not just use AI to complete the tasks, but also use AI to augment
 - [ ] Have a blank folder ready: `mkdir demo-game && cd demo-game && gemini`
 - [ ] Pre-test the live demo prompt once so you know it works on your machine
 
-### Sandbox Alternative: Google Cloud Shell 
+### Sandbox Alternative: Google Cloud Shell
 
 - [ ] Open Google [Cloud Shell Editor](https://shell.cloud.google.com/), which includes Gemini CLI
 - [ ] Open a terminal **large font (18pt+)**
 - [ ] Set a Cloud Platform project
 - [ ] Have a blank folder ready: `mkdir demo-game && cd demo-game && gemini`
-- [ ] Open another terminal to start a http server: `cd demo-game && python3 -m http.server 8080`
+- [ ] Open another terminal to start an HTTP server: `cd demo-game && python3 -m http.server 8080`
 - [ ] Use the [Web Preview Button](https://docs.cloud.google.com/shell/docs/using-web-preview) to test the web app in another tab
 - [ ] Pre-test the live demo prompt once so you know it works on your machine
 
