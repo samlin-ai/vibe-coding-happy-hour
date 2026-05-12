@@ -1,5 +1,5 @@
 # Coach Guide: Kids' First Vibe Coding Game with Gemini CLI
-**Ages:** 8–14 | **Team size:** 3–5 kids | **Duration:** 60 minutes
+**Audience:** Kids (ages 8–14) + breakout coach | **Team size:** 3–5 kids | **Duration:** 60 minutes
 
 ---
 
@@ -29,9 +29,9 @@ The coach not only guides the team in working together to deliver these key resu
 > "You are all game designers today. In one hour, you will build a real game that anyone can play. The AI will write the code — your job is to tell it WHAT to build."
 
 **Activity — 3-minute brainstorm:**
-1. Ask each kid to think and write down on sticky note by themself for a minute: *"What is your favorite game?"*
-2. Each tell the answer, and then group them on a whiteboard as a team.
-3. Vote by show of hands to pick top two.
+1. Ask each kid to think and write down their answer on a sticky note by themselves for a minute: *"What is your favorite game?"*
+2. Each kid shares their answer, then group them on a whiteboard as a team.
+3. Vote by show of hands to pick the top two.
 4. Combine the top two into a new game as a group.
 5. Ask: *"What happens when you win? What happens when you lose?"*
 
@@ -56,9 +56,9 @@ The coach not only guides the team in working together to deliver these key resu
 **Step 1 — Generate the game (coach reads this prompt aloud, Prompt Writer types it):**
 
 ```
-We are kids aged 8-14 making our very first game. 
-Please create a simple [GAME NAME] game using only HTML, CSS, and JavaScript 
-in a single file called index.html. 
+We are kids aged 8–14 making our very first game.
+Please create a simple [GAME NAME] game using only HTML, CSS, and JavaScript
+in a single file called index.html.
 Rules:
 - [RULE 1 the kids decided]
 - [RULE 2 the kids decided]
@@ -88,7 +88,7 @@ start index.html
 
 **Quick fix prompt template:**
 ```
-The game has a bug: [describe what's wrong in plain English]. 
+The game has a bug: [describe what's wrong in plain English].
 Please fix it and show me the updated index.html.
 ```
 
@@ -132,8 +132,8 @@ Add a "Play Again" button on the Game Over screen.
 **Goal:** Understand how the game works and is built.
 
 1. Ask the team to think and guess how the game works.
-2. Guide the team to ask Gemini CLI to explain how the game works to [x] years old.
-3. Guide the team to ask Gemini CLI to create a system design diagram, and for them to ask follow up questions.
+2. Guide the team to ask Gemini CLI to explain how the game works to an [x]-year-old.
+3. Guide the team to ask Gemini CLI to create a system design diagram, and for them to ask follow-up questions.
 
 ---
 
@@ -162,7 +162,7 @@ Add a "Play Again" button on the Game Over screen.
 ### "Gemini gave us weird code / it didn't work"
 Be matter-of-fact: bugs are normal. Use this prompt:
 ```
-That didn't work as expected. [Describe the problem]. 
+That didn't work as expected. [Describe the problem].
 Can you try a simpler approach?
 ```
 
