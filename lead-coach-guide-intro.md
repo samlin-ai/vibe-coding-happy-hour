@@ -33,7 +33,6 @@ See [Coach Prep](./coach-prep.md) for setup checklists.
 1. Ask kids to turn cameras on and wave.
 2. Quick poll in chat: *"Type one game you love."* (Coach reads a few aloud.)
 3. Introduce yourself in one sentence: name, where you're from, your favorite game as a kid.
-4. Each coach introduces themselves in one sentence: name, where you're from, your favorite game as a kid.
 
 **Coach tip:** Don't lecture. Energy now sets the tone for the whole two hours. If kids are quiet, ask: *"Who has played a game today already?"* — hands always go up.
 
@@ -44,14 +43,14 @@ See [Coach Prep](./coach-prep.md) for setup checklists.
 **Goal:** Give a kid-sized mental model of AI. No jargon.
 
 **Say to everyone:**
-> "AI is a helper that reads what you type and writes back. It can write stories, answer questions, and — this is the cool part — it can also write computer code. Today we're going to be the bosses. AI is the worker. We tell it what to build."
+> "AI is a helper with all the world's knowledge. It reads what you type, do the tasks and reports back. It can write stories, answer questions, and — this is the cool part — it can also write computer code. Today we're going to be the architectes. AI will be our worker. We tell it what to build."
 
 **Activity — Two questions, hands up:**
-1. *"Who has used AI before? Maybe ChatGPT, Gemini, or Siri?"* (Most hands go up.)
+1. *"Who has used AI before? Maybe ChatGPT, Gemini, or anything else?"* (Most hands go up.)
 2. *"Who has used AI to make something — not just answer a question?"* (Fewer hands. That's today.)
 
 **The one big idea — say it slowly:**
-> "AI is good at doing. You are good at deciding. Today you decide what game to make. AI does the typing."
+> "AI is good at doing. You are good at deciding. Today you decide what game to make, and AI codes it."
 
 **Coach tip:** Resist explaining neural networks, LLMs, or training data. A 10-year-old needs the *role* of AI, not the *mechanics* of AI.
 
@@ -66,14 +65,11 @@ See [Coach Prep](./coach-prep.md) for setup checklists.
 - Folder is empty — kids should see it start from nothing
 
 **Say to everyone:**
-> "I'm going to type one sentence in plain English. Watch what happens."
+> "I'm going to cast spells in English. Watch what happens."
 
 **Step 1 — Type the prompt live (kids can read along):**
 ```
-We are making a demo for kids. Please create a simple
-"click the moving emoji" game in a single file called
-index.html using HTML, CSS, and JavaScript. Show the
-score. Make it colorful. Add instructions at the top.
+Build a Space Invaders web game without frameworks.
 ```
 
 **Step 2 — While Gemini is generating, narrate:**
@@ -81,25 +77,22 @@ score. Make it colorful. Add instructions at the top.
 
 **Step 3 — Open `index.html` in the browser and play it for 20 seconds.**
 
-**Step 4 — Ask one kid (call on someone with their hand up) to suggest a change.**
-Take their idea and type a follow-up prompt:
-```
-Add [the kid's idea]. Show me the updated index.html.
-```
-Refresh the browser. Play again.
-
-**Coach tip:** Pick a kid suggestion you can do in under 60 seconds (color change, emoji swap, faster speed). If the demo breaks, *stay calm and say*: **"Bugs happen to every developer. Watch."** Then ask Gemini to fix it. The recovery moment is more valuable than a clean demo.
-
-**The takeaway — say it after the demo:**
+**Step 4 - The takeaway — say it after the demo:**
 > "That's it. That's vibe coding. You describe. AI builds. You decide if it's good. You ask for changes. Repeat."
 
-**Pro tip:** The Prompting Framework: "Role, Goal, Context".
+**Step 5 - How to cast better spells (aka prompting)?**
+
+**"Role, Goal, Context"** Prompting Framework
 > "You are an expert game developer. Please build a simple web game where a panda catches falling tacos. It should be colorful, fun, and work in a browser."
 
-Ask follow-up questions, such as:
+- Ask follow-up questions, such as:
 > "Why does this framework work better?"
 
-**Bonus:** Meta Prompting — just ask it to level up your prompt:
+- Hit: how does this like **the Six Thinking Hats role-playing**? Because **Attention Is All You Need**?
+
+**Step 6 - Beat AI at its own game:** 
+
+**Meta Prompting** — just ask it to level up your prompt:
 > "You are the best prompt engineer. Please create a prompt to build a simple web game where a panda catches falling tacos. The game should be colorful, fun, and work in a browser."
 
 ---
@@ -111,26 +104,11 @@ Ask follow-up questions, such as:
 **Say to everyone:**
 > "In a minute, we're sending you into smaller rooms — 3 to 5 kids per room with one coach. You'll have 60 minutes to build your own game as a team."
 
-**Show on screen — the team roles:**
-
-| Role | What They Do |
-|------|--------------|
-| **Prompt Writer** | Types prompts into Gemini CLI |
-| **Game Designer** | Decides features and rules |
-| **Tester** | Refreshes the browser and reports bugs |
-| **Note Taker** | Writes down what works and what to add next |
-| **Art Director** | Picks colors, emojis, sounds |
-
-**Say:**
-> "Every kid gets a role. Every kid matters. Your coach will help you pick."
-
 **Set the show & tell expectation:**
 > "After your hour, every team comes back here. Each team gets to demo their game to everyone. That's the finish line."
 
 **Introduce the breakout coaches by name:**
 > "Your coaches today are [Coach A], [Coach B], [Coach C]. Wave when I say your name."
-
-**Coach tip:** Kids retain about three things. Make those three: *roles, 60 minutes, show & tell*.
 
 ---
 
