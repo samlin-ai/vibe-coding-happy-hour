@@ -75,9 +75,3 @@ Coach students not just to use AI to complete the tasks, but also to use AI to a
 - "Can you please explain what this part of the code does in plain English?" (Great for learning while doing!)
 
 ---
-
-## Before the Session
-
-See [Coach Prep](./coach-prep.md) for setup checklists.
-
----

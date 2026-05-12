@@ -14,6 +14,12 @@ The coach not only guides the team in working together to deliver these key resu
 
 ---
 
+## Before the Session
+
+See [Coach Prep](./coach-prep.md) for setup checklists.
+
+---
+
 ## Session Timeline
 
 ### Segment 1 — Assemble the Team (0:00–0:05)
