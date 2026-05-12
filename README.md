@@ -55,6 +55,7 @@ If a student is stuck, ask them to "vibe" it out loud to you. "What do you want 
 
 Sometimes Gemini might suggest a complex library. Remind students to ask for "no other framework, please." to keep the project simple and easy to read.
 
+- For example, Gemini CLI may try to use npm or any tools not yet installed, just say: "please don't use npm or any framework".
 
 ### The "Show and Tell"
 
