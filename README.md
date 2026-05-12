@@ -5,6 +5,8 @@ This is a course to grow K12 students to become AI-native builders, starting fro
 
 **Brought to you by: [CSequityAI.org](https://www.csequityai.org/)**
 
+---
+
 ## Goals
 1. To spark their curiosity by having fun making games.
 2. Hands-on experience not only vibe coding, but also AI-augmented understanding to be ready for the brave new world.
@@ -12,9 +14,11 @@ This is a course to grow K12 students to become AI-native builders, starting fro
 4. Practice technical communication skills by Show & Tell.
 
 ## Examples
+
 Check out these games to see what kids will build: https://samlin-ai.github.io/vibe-coding-happy-hour/
 
 ## 2-Hour Course
+
 1. 30 min. Introduction to AI & Gemini CLI for all on Google Meet
     - The lead coach kicks off the event according to [the lead coach guide](./lead-coach-guide-intro.md).
 2. 60 min. Breakout Session: Vibe Coding Your First Game
@@ -24,6 +28,7 @@ Check out these games to see what kids will build: https://samlin-ai.github.io/v
 4. 10 min. Closing
 
 ## Why use the CLI for K12?
+
 1. Reduced Friction: No more manual copy-pasting. If they want a change, they run the command again or use a "fix" command.
 2. Tech Literacy: Students learn basic file system navigation (cd, ls, mkdir) while doing something fun.
 3. Automation: They see how AI can be used as a tool inside other programs, rather than just a chatbot.
@@ -40,6 +45,7 @@ Check out these games to see what kids will build: https://samlin-ai.github.io/v
 Source: [How AI Impacts Skill Formation: 6 AI interaction personas](https://www.anthropic.com/research/AI-assistance-coding-skills)
 
 #### Examples
+
 > "please explain how the game works to 7 years old."
 
 > "please explain the design with a ASCII diagram."
@@ -67,3 +73,24 @@ Coach students not just use AI to complete the tasks, but also use AI to augment
 
 - "How to add 'Start Game' button so it doesn't begin immediately."
 - "Can you please explain what this part of the code does in plain English?" (Great for learning while doing!)
+
+---
+
+## Before the Session (Coach Prep)
+
+- [ ] Install [Gemini CLI](https://github.com/google-gemini/gemini-cli) and run `gemini` once to confirm auth
+- [ ] Open a terminal **large font (18pt+)** and a browser side-by-side; share that screen
+- [ ] Have a blank folder ready: `mkdir demo-game && cd demo-game && gemini`
+- [ ] Pre-test the live demo prompt once so you know it works on your machine
+
+### Sandbox Alternative: Google Cloud Shell 
+
+- [ ] Open Google [Cloud Shell Editor](https://shell.cloud.google.com/), which includes Gemini CLI
+- [ ] Open a terminal **large font (18pt+)**
+- [ ] Set a Cloud Platform project
+- [ ] Have a blank folder ready: `mkdir demo-game && cd demo-game && gemini`
+- [ ] Open another terminal to start a http server: `cd demo-game && python3 -m http.server 8080`
+- [ ] Use the [Web Preview Button](https://docs.cloud.google.com/shell/docs/using-web-preview) to test the web app in another tab
+- [ ] Pre-test the live demo prompt once so you know it works on your machine
+
+---

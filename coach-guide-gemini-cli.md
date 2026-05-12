@@ -14,22 +14,6 @@ The coach not only guides the team in working together to deliver these key resu
 
 ---
 
-## Before the Session (Coach Prep)
-
-- [ ] Install [Gemini CLI](https://github.com/google-gemini/gemini-cli) on the computer
-- [ ] Run `gemini` once to confirm it works and is authenticated
-- [ ] Open a terminal and a browser side-by-side
-- [ ] Have a blank folder ready: `mkdir my-first-game && cd my-first-game`
-- [ ] Keep this guide open for reference
-
-**Good game types for beginners (pick one if the team is stuck):**
-- Catch the falling stars ⭐
-- Click the mole 🐹
-- Dodge the obstacles 🚧
-- Guess the number 🔢
-
----
-
 ## Session Timeline
 
 ### Segment 1 — Assemble the Team (0:00–0:05)
@@ -244,3 +228,5 @@ By the end of the hour, the team should have:
 - Confidence that they can build things with code
 
 The game doesn't have to be perfect. **Shipped beats perfect.**
+
+---

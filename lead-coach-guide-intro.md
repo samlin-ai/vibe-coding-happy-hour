@@ -14,18 +14,6 @@ The lead coach kicks off the event and introduce AI and Gemini CLI to get eveyon
 
 ---
 
-## Before the Session (Lead Coach Prep)
-
-- [ ] Install [Gemini CLI](https://github.com/google-gemini/gemini-cli) and run `gemini` once to confirm auth
-- [ ] Open a terminal **large font (18pt+)** and a browser side-by-side; share that screen
-- [ ] Have a blank folder ready: `mkdir demo-game && cd demo-game`
-- [ ] Pre-test the live demo prompt once so you know it works on your machine
-- [ ] Have the breakout room assignments + coach names ready to share
-- [ ] Mute notifications, close email/chat windows on the shared screen
-- [ ] Open this guide on a second device or printed sheet — not on the shared screen
-
----
-
 ## Session Timeline
 
 ### Segment 1 — Welcome & Energy (0:00–0:05)
@@ -200,3 +188,5 @@ By the end of these 30 minutes:
 - Every kid believes *they* can do what they just saw
 
 The intro doesn't need to teach everything. It needs to make kids want to start. **Shipped beats perfect.**
+
+---
