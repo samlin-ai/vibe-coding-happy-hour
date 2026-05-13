@@ -19,13 +19,15 @@ Check out these games to see what kids will build: https://samlin-ai.github.io/v
 
 ## 2-Hour Course
 
-1. 30 min. Introduction to AI & Gemini CLI for all on Google Meet
+<img src="./res/agenda.png" width="640">
+
+1. 30 min. Introduction to AI & Gemini CLI for All on Google Meet
     - The lead coach kicks off the event according to [the lead coach guide](./lead-coach-guide-intro.md).
 2. 60 min. Breakout Session: Vibe Coding Your First Game
     - 3-5 students with 1 coach in person or virtually in a breakout room
     - A coach guides the team to build their first game according to [the instructions](./coach-guide-gemini-cli.md).
-3. 20 min. Show & Tell for each team for all on Google Meet
-4. 10 min. Closing
+3. 20 min. Show & Tell for each team with All
+4. 10 min. It's a Wrap
 
 ## Why use the CLI for K12?
 

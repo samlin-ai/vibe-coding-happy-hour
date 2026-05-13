@@ -6,11 +6,11 @@
 ## Key Results
 The coach not only guides the team in working together to deliver these key results, but also challenges them to go above and beyond.
 
-- [ ] Name of the team
-- [ ] Brainstorm the idea of the game & prompts
-- [ ] Brainstorm the improvements & prompts
-- [ ] Understand how the game works & the design
-- [ ] Rehearse the show & tell
+1. [ ] Name of the team
+2. [ ] Brainstorm the idea of the game & prompts
+3. [ ] Brainstorm the improvements & prompts
+4. [ ] Understand how the game works & the design
+5. [ ] Rehearse the show & tell
 
 ---
 

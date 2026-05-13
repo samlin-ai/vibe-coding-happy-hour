@@ -6,11 +6,11 @@
 ## Key Results
 The lead coach kicks off the event and introduces AI and Gemini CLI to get everyone ready for the vibe coding breakout session.
 
-- [ ] Everyone feels welcomed and excited
-- [ ] Coaches have been introduced by name
-- [ ] Kids know their breakout room and the show & tell expectation
-- [ ] Kids know what AI is and how to use Gemini CLI
-- [ ] Kids get some ideas of vibe coding games from a few examples
+1. [ ] Everyone feels welcomed and excited
+2. [ ] Kids know what AI is and how to use Gemini CLI
+3. [ ] Kids get some ideas of vibe coding games from a few examples
+4. [ ] Kids know their breakout room and the show & tell expectation
+5. [ ] Coaches have been introduced by name
 
 ---
 
@@ -42,8 +42,10 @@ See [Coach Prep](./coach-prep.md) for setup checklists.
 
 **Goal:** Give a kid-sized mental model of AI. No jargon.
 
+<img src="./res/ai-SmartSlotMachine.png" width="640">
+
 **Say to everyone:**
-> "AI is a helper with all the world's knowledge. It reads what you type, do the tasks and reports back. It can write stories, answer questions, and — this is the cool part — it can also write computer code. Today we're going to be the architectes. AI will be our worker. We tell it what to build."
+> "AI is a helper with all the world's knowledge. It reads what you type, do the tasks and reports back. It can write stories, answer questions, and — this is the cool part — it can also write computer code. Today we're going to be the architect. AI will be our masons. We tell it what to build."
 
 **Activity — Two questions, hands up:**
 1. *"Who has used AI before? Maybe ChatGPT, Gemini, or anything else?"* (Most hands go up.)
@@ -60,9 +62,7 @@ See [Coach Prep](./coach-prep.md) for setup checklists.
 
 **Goal:** Show, don't tell. By the end of this segment, every kid has watched a game appear on screen from a single sentence.
 
-**Set up the screen share:**
-- Terminal on the left, browser on the right
-- Folder is empty — kids should see it start from nothing
+<img src="./res/ai-TheElvesAndTheShoemaker.png" width="640">
 
 **Say to everyone:**
 > "I'm going to cast spells in English. Watch what happens."
