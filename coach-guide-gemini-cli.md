@@ -22,7 +22,7 @@ See [Coach Prep](./coach-prep.md) for setup checklists.
 
 ## Session Timeline
 
-### Segment 1 — Assemble the Team (0:00–0:05)
+### Segment 1 — Builders Assemble (0:00–0:05)
 
 **Goal:** Get the kids to know each other and name the team together.
 
@@ -49,53 +49,21 @@ See [Coach Prep](./coach-prep.md) for setup checklists.
 
 **Goal:** Get a working game on screen in 20 minutes.
 
-**Assign roles to kids:**
+**Step 1 — Generate the game (kids say the prompt & the coach types):**
 
-| Role | What They Do |
-|------|--------------|
-| **Prompt Writer** | Types the prompts into Gemini CLI |
-| **Game Designer** | Decides features and rules |
-| **Tester** | Refreshes the browser and reports bugs |
-| **Note Taker** | Writes down what works and what to add next |
-| *(5th kid)* **Art Director** | Picks colors, emojis, sounds |
-
-**Step 1 — Generate the game (coach reads this prompt aloud, Prompt Writer types it):**
-
+For example:
 ```
-We are kids aged 8–14 making our very first game.
-Please create a simple [GAME NAME] game using only HTML, CSS, and JavaScript
-in a single file called index.html.
-Rules:
-- [RULE 1 the kids decided]
-- [RULE 2 the kids decided]
-- Show the score on screen
-- Show a "Game Over" message when the player loses
-- Make it colorful and fun
-- Add simple instructions at the top so anyone knows how to play
+Build a simple Tetris web game without frameworks.
 ```
 
-**Step 2 — Save the file:**
-Gemini will output code. Coach helps copy it into `index.html`:
-```
-gemini "Save the code above into a file called index.html"
-```
-Or paste manually into a text editor and save as `index.html`.
+**Step 2 — Open in browser for each kid to play**
 
-**Step 3 — Open in browser:**
-```
-# On Mac/Linux
-open index.html
-
-# On Windows
-start index.html
-```
-
-**Coach tip:** If the game doesn't work, don't panic! Say: *"Even professional developers get bugs. Let's ask Gemini to fix it — that's the vibe coding superpower."*
+**Coach tip:** If the game doesn't work, don't panic! Say: *"Even professional developers get bugs. Let's ask Gemini CLI to fix it — that's the vibe coding superpower."*
 
 **Quick fix prompt template:**
 ```
 The game has a bug: [describe what's wrong in plain English].
-Please fix it and show me the updated index.html.
+Please fix it.
 ```
 
 ---
@@ -138,8 +106,9 @@ Add a "Play Again" button on the Game Over screen.
 **Goal:** Understand how the game works and is built.
 
 1. Ask the team to think and guess how the game works.
-2. Guide the team to ask Gemini CLI to explain how the game works to an [x]-year-old.
-3. Guide the team to ask Gemini CLI to create a system design diagram, and for them to ask follow-up questions.
+2. Open index.html, and other generated files for a quick look.
+3. Guide the team to ask Gemini CLI to explain how the game works to an [x]-year-old.
+4. Guide the team to ask Gemini CLI to create a system design diagram, and for them to ask follow-up questions.
 
 ---
 
@@ -175,9 +144,6 @@ Can you try a simpler approach?
 ### "The kids are arguing about what feature to add"
 Use the voting rule: each kid gets one vote, majority wins. Ties go to the Game Designer role.
 
-### "One kid is dominating the keyboard"
-Rotate the Prompt Writer role every 5 minutes. Set a phone timer.
-
 ### "A kid says 'I can't do this, I don't know how to code'"
 Reply: *"That's the whole point — you don't need to! You just tell the AI what you want in plain English. You already did it."*
 
@@ -186,18 +152,6 @@ Skip Segment 4 upgrades. Go straight to Show & Tell at 0:45. A working game beat
 
 ### "We have extra time"
 Ask: *"Should we add a two-player mode? Let's ask Gemini!"*
-
----
-
-## Key Phrases to Use Throughout
-
-| Moment | What to Say |
-|--------|-------------|
-| Starting a new prompt | *"How do we tell Gemini what we want?"* |
-| After a success | *"You designed that. The AI just followed your instructions."* |
-| After a bug | *"Bugs happen to every developer. Let's debug together."* |
-| When stuck | *"Let's ask Gemini for ideas. Type: 'What should we add next?'"* |
-| At the end | *"You built this. You are the game designers."* |
 
 ---
 
@@ -234,5 +188,28 @@ By the end of the hour, the team should have:
 - Confidence that they can build things with code
 
 The game doesn't have to be perfect. **Shipped beats perfect.**
+
+---
+
+## Bonuses
+
+Try these when the team has extra time.
+
+### Question 1: How to cast better spells (aka prompting)?
+
+**"Role, Goal, Context"** Prompting Framework
+> "You are an expert game developer. Please build a simple web game where a panda catches falling tacos. It should be colorful, fun, and work in a browser."
+
+Ask follow-up questions, such as:
+> "Why does this framework work better?"
+
+Hit: how does this like **the Six Thinking Hats role-playing**? Because **Attention Is All You Need**.
+
+---
+
+### Question 2: How to beat AI at its own game? 
+
+**Meta Prompting** — just ask it to level up your prompt:
+> "You are the best prompt engineer. Please create a prompt to build a simple web game where a panda catches falling tacos. The game should be colorful, fun, and work in a browser."
 
 ---

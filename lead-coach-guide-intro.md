@@ -80,21 +80,6 @@ Build a Space Invaders web game without frameworks.
 **Step 4 - The takeaway — say it after the demo:**
 > "That's it. That's vibe coding. You describe. AI builds. You decide if it's good. You ask for changes. Repeat."
 
-**Step 5 - How to cast better spells (aka prompting)?**
-
-**"Role, Goal, Context"** Prompting Framework
-> "You are an expert game developer. Please build a simple web game where a panda catches falling tacos. It should be colorful, fun, and work in a browser."
-
-- Ask follow-up questions, such as:
-> "Why does this framework work better?"
-
-- Hit: how does this like **the Six Thinking Hats role-playing**? Because **Attention Is All You Need**?
-
-**Step 6 - Beat AI at its own game:** 
-
-**Meta Prompting** — just ask it to level up your prompt:
-> "You are the best prompt engineer. Please create a prompt to build a simple web game where a panda catches falling tacos. The game should be colorful, fun, and work in a browser."
-
 ---
 
 ### Segment 4 — How Your Hour Will Work (0:22–0:27)
