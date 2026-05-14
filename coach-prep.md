@@ -15,7 +15,7 @@ You as a coach should set up the development environment before the session. A C
 - [ ] Create a blank folder for your team: `cd ~/vibe-coding-happy-hour/examples && mkdir builder1 && cd builder1 && gemini`
 - [ ] Open another terminal to start an HTTP server: `cd ~/vibe-coding-happy-hour/examples/builder1 && python3 -m http.server 8080`
 - [ ] Use the [Web Preview Button](https://docs.cloud.google.com/shell/docs/using-web-preview) to test the web app in another tab
-- [ ] Pre-test the live demo prompt once so you know it works on your machine
+- [ ] Pre-test the live demo prompt once so you know it works on your machine, e.g. `Build a simple Tetris web game without frameworks.`. Remember to remove the code before the section.
 
 ---
 
