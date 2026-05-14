@@ -1,6 +1,6 @@
 # Development Enviornment Setup
 
-You as a coach should set up the development environment before the session. A Cloud Sandbox is the best choice. Which you can allow Gemini CLI to do thing automaticallyfor the whole section without manually approve everything.
+You as a coach should set up the development environment before the session. A Cloud Sandbox is the best choice. Because it runs on a VM as the sandbox, you can allow Gemini CLI to do thing automatically (Allow for this session) without manually approving every action.
 
 ---
 
@@ -8,14 +8,20 @@ You as a coach should set up the development environment before the session. A C
 
 - [ ] Login builder[n]@csequityai.org on a Chrome browser
 - [ ] Zoom In: [⌘] + [+] (Mac) to 150% or larger
-- [ ] Open Google [Cloud Shell Editor](https://shell.cloud.google.com/), which includes Gemini CLI
-- [ ] Open a New Terminal 
+- [ ] Open Google [Cloud Shell Editor](https://shell.cloud.google.com/?show=ide), which includes Gemini CLI
+- [ ] Open a New Terminal
 - [ ] Clone the git project: `git clone https://github.com/samlin-ai/vibe-coding-happy-hour.git`
+- [ ] Setup the worksapce by dev-env-setup.sh: `~/vibe-coding-happy-hour/dev-env-setup.sh`
+- [ ] Use the [Web Preview Button](https://docs.cloud.google.com/shell/docs/using-web-preview) to test the web app in another tab
+- [ ] Pre-test the live demo prompt once so you know it works on your machine, e.g. `Build a simple Tetris web game without frameworks.`. Remember to remove the code before the section.
+
+### Manual Setup
+
+These are the steps in dev-env-setup.sh:
+
 - [ ] Set a Cloud Platform project to: VibeCodingHappyHour as: `gcloud config set project $(gcloud projects list --filter="name:'VibeCodingHappyHour'" --format="value(projectId)")`
 - [ ] Create a blank folder for your team: `cd ~/vibe-coding-happy-hour/examples && mkdir $(whoami) && cd $(whoami)$ && gemini`
 - [ ] Open another terminal to start an HTTP server: `cd ~/vibe-coding-happy-hour/examples/$(whoami) && python3 -m http.server 8080`
-- [ ] Use the [Web Preview Button](https://docs.cloud.google.com/shell/docs/using-web-preview) to test the web app in another tab
-- [ ] Pre-test the live demo prompt once so you know it works on your machine, e.g. `Build a simple Tetris web game without frameworks.`. Remember to remove the code before the section.
 
 ---
 
