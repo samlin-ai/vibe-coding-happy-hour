@@ -4,6 +4,8 @@ You as a coach should set up the development environment before the session. A C
 
 ---
 
+[![Cloud Sandbox Setup](https://img.youtube.com/vi/egmYXLeafws/0.jpg)](https://youtu.be/egmYXLeafws)
+
 ## Cloud Sandbox: Google Cloud Shell Editor via Chrome browser on any device
 
 - [ ] Login builder[n]@csequityai.org on a Chrome browser

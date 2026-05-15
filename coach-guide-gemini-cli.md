@@ -17,7 +17,7 @@ The coach not only guides the team in working together to deliver these key resu
 
 ## Before the Session
 
-See [Coach Prep](./coach-prep.md) for setup checklists.
+Follow [dev-env-setup.md](./dev-env-setup.md) to set it up.
 
 ---
 

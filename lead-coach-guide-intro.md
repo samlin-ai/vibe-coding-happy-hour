@@ -17,7 +17,7 @@ The lead coach kicks off the event and introduces AI and Gemini CLI to get every
 
 ## Before the Session
 
-See [Coach Prep](./coach-prep.md) for setup checklists.
+Follow [dev-env-setup.md](./dev-env-setup.md) to set it up.
 
 ---
 
