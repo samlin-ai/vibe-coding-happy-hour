@@ -10,6 +10,7 @@ A simple web game to get you started. Hope you catch enough tacos to feed the te
 A simple DOM-based arcade game where game objects are represented directly as HTML elements rather than being drawn on a canvas.
 
 ### Core Systems
+
 1. **Game Loop**: Uses `requestAnimationFrame` to update positions and check collisions roughly 60 times per second.
 2. **Object Management**: Tacos are dynamically created as `div` elements, stored in an array, and removed from the DOM when they are caught or fall off-screen.
 3. **Collision Detection**: Uses `Element.getBoundingClientRect()` to detect overlaps between the panda emoji and the taco emojis.

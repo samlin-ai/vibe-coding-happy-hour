@@ -10,7 +10,8 @@ Did you know Tetris is the best-selling video game of all time, with [520 millio
 The game is built using the HTML5 Canvas API and uses a matrix-based representation for both the game board and the falling pieces (tetrominoes).
 
 ### Core Systems
-1. **Matrix Engine**: Both the 10x20 board and the 3x3 or 4x4 pieces are 2D arrays (matrices). Logic like rotation is handled via matrix transposition and reversal.
+
+1. **Matrix Engine**: Both the 10×20 board and the 3×3 or 4×4 pieces are 2D arrays (matrices). Logic like rotation is handled via matrix transposition and reversal.
 2. **Collision Detection**: Before any move (left, right, down, or rotate), the game checks if the piece's matrix overlaps with any non-zero values in the board matrix or goes out of bounds.
 3. **Game Loop**: Uses `requestAnimationFrame` to handle timing. A `dropCounter` tracks time to move the piece down automatically, while user inputs trigger immediate updates.
 4. **Row Clearing (Arena Sweep)**: After a piece is "merged" into the board, the engine scans for full rows (no zeros), removes them, and shifts the board down.
@@ -40,7 +41,7 @@ The game is built using the HTML5 Canvas API and uses a matrix-based representat
    - Rotate: Transpose/Reverse
 ```
 
-## Follow-up Questions
+### Follow-up Questions
 
 1. Why does this simple prompt work better?
 2. Which is the magic keyword, and why?

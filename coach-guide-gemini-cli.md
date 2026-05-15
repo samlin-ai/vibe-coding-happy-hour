@@ -4,13 +4,14 @@
 ---
 
 ## Key Results
+
 The coach not only guides the team in working together to deliver these key results, but also challenges them to go above and beyond.
 
-1. [ ] Name of the team
-2. [ ] Brainstorm the idea of the game & prompts
-3. [ ] Brainstorm the improvements & prompts
-4. [ ] Understand how the game works & the design
-5. [ ] Rehearse the show & tell
+1. [ ] Name the team.
+2. [ ] Brainstorm the idea of the game and the prompts.
+3. [ ] Brainstorm the improvements and the prompts.
+4. [ ] Understand how the game works and its design.
+5. [ ] Rehearse the Show & Tell.
 
 ---
 
@@ -203,11 +204,11 @@ Try these when the team has extra time.
 Ask follow-up questions, such as:
 > "Why does this framework work better?"
 
-Hit: how does this like **the Six Thinking Hats role-playing**? Because **Attention Is All You Need**.
+Hint: how is this like **the Six Thinking Hats role-playing**? Because **Attention Is All You Need**.
 
 ---
 
-### Question 2: How to beat AI at its own game? 
+### Question 2: How to beat AI at its own game?
 
 **Meta Prompting** — just ask it to level up your prompt:
 > "You are the best prompt engineer. Please create a prompt to build a simple web game where a panda catches falling tacos. The game should be colorful, fun, and work in a browser."

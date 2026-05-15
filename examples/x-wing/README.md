@@ -10,6 +10,7 @@ Fly an X-Wing through the Death Star trench and take your shot. A full 3D game r
 The game implements a classic "trench run" mechanic using a perspective camera as the player's cockpit.
 
 ### Core Systems
+
 1. **Infinite Scroller**: The environment (trench segments) and obstacles move toward the player along the Z-axis. When a segment passes the camera, it is recycled to the far end.
 2. **Movement System**:
     - **Environment**: Moves at a constant `SPEED`.

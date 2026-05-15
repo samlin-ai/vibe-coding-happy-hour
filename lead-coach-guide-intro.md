@@ -4,13 +4,14 @@
 ---
 
 ## Key Results
+
 The lead coach kicks off the event and introduces AI and Gemini CLI to get everyone ready for the vibe coding breakout session.
 
-1. [ ] Everyone feels welcomed and excited
-2. [ ] Kids know what AI is and how to use Gemini CLI
-3. [ ] Kids get some ideas of vibe coding games from a few examples
-4. [ ] Kids know their breakout room and the show & tell expectation
-5. [ ] Coaches have been introduced by name
+1. [ ] Everyone feels welcomed and excited.
+2. [ ] Kids know what AI is and how to use Gemini CLI.
+3. [ ] Kids get some ideas for vibe coding games from a few examples.
+4. [ ] Kids know their breakout room and the Show & Tell expectation.
+5. [ ] Coaches have been introduced by name.
 
 ---
 
@@ -45,7 +46,7 @@ See [Coach Prep](./coach-prep.md) for setup checklists.
 <img src="./res/ai-SmartSlotMachine.png" width="640">
 
 **Say to everyone:**
-> "AI is a helper with all the world's knowledge. It reads what you type, do the tasks and reports back. It can write stories, answer questions, and — this is the cool part — it can also write computer code. Today we're going to be the architect. AI will be our masons. We tell it what to build."
+> "AI is a helper with all the world's knowledge. It reads what you type, does the tasks, and reports back. It can write stories, answer questions, and — this is the cool part — it can also write computer code. Today we're going to be the architects. AI will be our masons. We tell it what to build."
 
 **Activity — Two questions, hands up:**
 1. *"Who has used AI before? Maybe ChatGPT, Gemini, or anything else?"* (Most hands go up.)
@@ -77,7 +78,7 @@ Build a Space Invaders web game without frameworks.
 
 **Step 3 — Open `index.html` in the browser and play it for 20 seconds.**
 
-**Step 4 - The takeaway — say it after the demo:**
+**Step 4 — The takeaway (say it after the demo):**
 > "That's it. That's vibe coding. You describe. AI builds. You decide if it's good. You ask for changes. Repeat."
 
 ---
