@@ -27,6 +27,7 @@ Follow [dev-env-setup.md](./dev-env-setup.md) to set it up.
 
 **Goal:** Get the kids to know each other and name the team together.
 
+---
 
 ### Segment 2 — Ignite the Idea (0:05–0:15)
 
@@ -50,7 +51,7 @@ Follow [dev-env-setup.md](./dev-env-setup.md) to set it up.
 
 **Goal:** Get a working game on screen in 20 minutes.
 
-**Step 1 — Generate the game (kids say the prompt & the coach types):**
+**Step 1 — Generate the game (kids take turns to type):**
 
 For example:
 ```
@@ -75,7 +76,10 @@ Please fix it.
 
 **Go around the team. Each kid picks ONE upgrade:**
 
-Prompt templates the kids can mix and match:
+Prompt examples the kids can mix and match:
+```
+Add a fun sound effect when the player scores a point.
+```
 ```
 Add a countdown timer that starts at 30 seconds.
 ```
@@ -87,9 +91,6 @@ Add a high score that saves between games.
 ```
 ```
 Make the game faster every 10 points.
-```
-```
-Add a fun sound effect when the player scores a point.
 ```
 ```
 Change the background color to [COLOR] and the font to something fun.
@@ -106,10 +107,12 @@ Add a "Play Again" button on the Game Over screen.
 
 **Goal:** Understand how the game works and is built.
 
+Guide kids try to answer these questions before asking Gemini.
+
 1. Ask the team to think and guess how the game works.
 2. Open index.html, and other generated files for a quick look.
-3. Guide the team to ask Gemini CLI to explain how the game works to an [x]-year-old.
-4. Guide the team to ask Gemini CLI to create a system design diagram, and for them to ask follow-up questions.
+3. To explain how the game works to an [x]-year-old.
+4. Draw an ASCII system diagram to explain how the game works. And then, ask follow-up questions.
 
 ---
 
@@ -129,7 +132,7 @@ Add a "Play Again" button on the Game Over screen.
 4. *"Where else could you use an AI assistant like this?"*
 
 **Give out the win:**
-> "You just shipped a real game. You are officially game developers."
+> "You just built a real game. You are officially game mackers."
 
 ---
 
@@ -205,6 +208,8 @@ Ask follow-up questions, such as:
 > "Why does this framework work better?"
 
 Hint: how is this like **the Six Thinking Hats role-playing**? Because **Attention Is All You Need**.
+
+<img src="./res/ai-SixThinkingHatsRoleplay.png" width="640">
 
 ---
 
