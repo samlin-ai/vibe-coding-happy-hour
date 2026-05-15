@@ -10,6 +10,8 @@ REPO_URL="https://github.com/samlin-ai/vibe-coding-happy-hour.git"
 REPO_DIR="$HOME/vibe-coding-happy-hour"
 GCP_PROJECT_NAME="VibeCodingHappyHour"
 TEAM_DIR="$REPO_DIR/examples/$(whoami)"
+LOG_DIR="$HOME/logs"
+
 HTTP_PORT="${HTTP_PORT:-8080}"
 
 log() { printf '\n\033[1;36m==> %s\033[0m\n' "$*"; }
@@ -37,10 +39,11 @@ fi
 
 log "Creating team folder: $TEAM_DIR"
 mkdir -p "$TEAM_DIR"
+mkdir -p "$LOG_DIR"
 
 log "Starting HTTP server on port $HTTP_PORT (background)"
-LOG_FILE="$TEAM_DIR/.http-server.log"
-PID_FILE="$TEAM_DIR/.http-server.pid"
+LOG_FILE="$LOG_DIR/.http-server.log"
+PID_FILE="$LOG_DIR/.http-server.pid"
 if [ -f "$PID_FILE" ] && kill -0 "$(cat "$PID_FILE")" 2>/dev/null; then
   echo "HTTP server already running (pid $(cat "$PID_FILE"))."
 else

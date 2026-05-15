@@ -51,7 +51,7 @@ Follow [dev-env-setup.md](./dev-env-setup.md) to set it up.
 
 **Goal:** Get a working game on screen in 20 minutes.
 
-**Step 1 — Generate the game (kids take turns to type):**
+**Step 1 — Generate the game (kids take turns to prompt):**
 
 For example:
 ```
@@ -67,6 +67,12 @@ Build a simple Tetris web game without frameworks.
 The game has a bug: [describe what's wrong in plain English].
 Please fix it.
 ```
+
+**Step 3 — Commit the change**
+
+Git is the time machine of your code. It tracks all changes you commit to. So, you and AI have the complete history of the jounery.
+
+Let's commit the first version as: [Source Control] > Use the prompt as the Message > [Commit]
 
 ---
 
