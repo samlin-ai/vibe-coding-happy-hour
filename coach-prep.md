@@ -1,9 +1,16 @@
-# Before the Session (Coach Prep)
+# Coach Prep: Before the Session
+**Audience:** Lead coach + breakout coaches | **When:** Before the event
+
+---
+
+## Local Setup
 
 - [ ] Install [Gemini CLI](https://github.com/google-gemini/gemini-cli) and run `gemini` once to confirm auth
 - [ ] Open a terminal **large font (18pt+)** and a browser side-by-side; share that screen
 - [ ] Have a blank folder ready: `mkdir demo-game && cd demo-game && gemini`
 - [ ] Pre-test the live demo prompt once so you know it works on your machine
+
+---
 
 ## Sandbox Alternative: Google Cloud Shell
 

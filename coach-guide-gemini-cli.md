@@ -20,6 +20,11 @@ The coach not only guides the team in working together to deliver these key resu
 
 **Goal:** Get the kids to know each other and name the team together.
 
+**Activity — Quick intros:**
+1. Each kid shares their name and one game they love.
+2. As a team, pick a fun team name together (animal + adjective works well, e.g., "Turbo Pandas").
+
+---
 
 ### Segment 2 — Ignite the Idea (0:05–0:15)
 
@@ -51,7 +56,7 @@ The coach not only guides the team in working together to deliver these key resu
 | **Game Designer** | Decides features and rules |
 | **Tester** | Refreshes the browser and reports bugs |
 | **Note Taker** | Writes down what works and what to add next |
-| *(5th kid)* **Art Director** | Picks colors, emojis, sounds |
+| **Art Director** *(5th kid)* | Picks colors, emojis, sounds |
 
 **Step 1 — Generate the game (coach reads this prompt aloud, Prompt Writer types it):**
 

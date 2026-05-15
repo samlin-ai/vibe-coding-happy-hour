@@ -18,7 +18,7 @@ The lead coach kicks off the event and introduces AI and Gemini CLI to get every
 
 ### Segment 1 — Welcome & Energy (0:00–0:05)
 
-**Goal:** Set the tone. Loud, friendly, kid-energy. Get every camera on.
+**Goal:** Set the tone. Loud, friendly, kid energy. Get every camera on.
 
 **Say to everyone:**
 > "Welcome to Vibe Coding Happy Hour! In the next two hours, you are going to build a real game — one you can play, share, and show off. Not a worksheet. A real game."
@@ -130,7 +130,7 @@ Ask follow-up questions, such as:
 
 ### Segment 5 — Send-Off (0:27–0:30)
 
-**Goal:** High energy hand-off into breakouts.
+**Goal:** High-energy handoff into breakouts.
 
 **Say to everyone:**
 > "Three rules for the next hour:

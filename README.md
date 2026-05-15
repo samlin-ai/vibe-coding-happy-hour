@@ -1,5 +1,5 @@
 # Vibe Coding Happy Hour
-This is a course to grow K12 students to become AI-native builders, starting from vibe coding their first game.
+This is a course that helps K12 students become AI-native builders, starting from vibe coding their first game.
 
 <img src="./res/csequityai.png" width="360">
 
@@ -8,10 +8,10 @@ This is a course to grow K12 students to become AI-native builders, starting fro
 ---
 
 ## Goals
-1. To spark their curiosity by having fun making games.
-2. Hands-on experience with not only vibe coding, but also AI-augmented understanding to be ready for the brave new world.
+1. Spark their curiosity by having fun making games.
+2. Build hands-on experience with both vibe coding and AI-augmented understanding to be ready for the brave new world.
 3. Practice technical collaboration skills as a team of 3–5.
-4. Practice technical communication skills by Show & Tell.
+4. Practice technical communication skills through Show & Tell.
 
 ## Examples
 
@@ -22,7 +22,7 @@ Check out these games to see what kids will build: https://samlin-ai.github.io/v
 1. 30 min. Introduction to AI & Gemini CLI for all on Google Meet
     - The lead coach kicks off the event according to [the lead coach guide](./lead-coach-guide-intro.md).
 2. 60 min. Breakout Session: Vibe Coding Your First Game
-    - 3-5 students with 1 coach in person or virtually in a breakout room
+    - 3–5 students with 1 coach, in person or virtually in a breakout room
     - A coach guides the team to build their first game according to [the instructions](./coach-guide-gemini-cli.md).
 3. 20 min. Show & Tell for each team for all on Google Meet
 4. 10 min. Closing
@@ -35,7 +35,7 @@ Check out these games to see what kids will build: https://samlin-ai.github.io/v
 
 ## Coaching Tips for Success
 
-### AI Augmented Understanding
+### AI-Augmented Understanding
 
 1. Challenge students to use a "generation-then-comprehension" approach: let the AI generate the code, but follow up with specific questions to ensure they fully understand the logic before they move on.
 2. Focus on conceptual inquiries: One of the most effective and efficient ways to use AI is to only ask conceptual questions.
@@ -52,10 +52,9 @@ Source: [How AI Impacts Skill Formation: 6 AI interaction personas](https://www.
 
 > "Please explain the change and trade-offs."
 
-
 ### The "Rubber Duck" Method
 
-If a student is stuck, ask them to "vibe" it out loud to you. "What do you want to happen when the taco hits the floor?" Once they say it, tell them: "Great—now tell Gemini exactly that."
+If a student is stuck, ask them to "vibe" it out loud to you. "What do you want to happen when the taco hits the floor?" Once they say it, tell them: "Great — now tell Gemini exactly that."
 
 ### Handling "Hallucinations"
 
@@ -63,7 +62,7 @@ Sometimes Gemini might suggest a complex library. Remind students to ask for "no
 
 - For example, if Gemini CLI tries to use npm or any tools not yet installed, just say: "Please don't use npm or any framework."
 
-### The "Show and Tell"
+### The "Show & Tell"
 
 In the last 15 minutes, have every student "playtest" another student's game. This builds a sense of community and allows them to see different "vibes" in action.
 
