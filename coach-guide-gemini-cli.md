@@ -72,7 +72,9 @@ Please fix it.
 
 Git is the time machine of your code. It tracks all changes you commit to. So, you and AI have the complete history of the jounery.
 
-Let's commit the first version as: [Source Control] > Use the prompt as the Message > [Commit]
+Let's commit each change by: [Source Control] > Use the prompt as the Message > [Commit]
+
+**Coach tip:** Open [Use version control](https://docs.cloud.google.com/shell/docs/version-control) to give a quick overview if there is time.
 
 ---
 
