@@ -15,12 +15,6 @@ The coach not only guides the team in working together to deliver these key resu
 
 ---
 
-## Before the Session
-
-Follow [dev-env-setup.md](./dev-env-setup.md) to set it up.
-
----
-
 ## Session Timeline
 
 **Coach tip:** Segment 4 — Make It Yours is nice to have. Feel free to spend more or less time on it according to the team's progress. It's better for the team to build a game and get ready for Show & Tell.

@@ -14,6 +14,8 @@ This is a course to grow K12 students to become AI-native builders, starting fro
 3. Practice technical collaboration skills as a team of 3–5.
 4. Practice technical communication skills through Show & Tell.
 
+---
+
 ## Examples
 
 Check out these games to see what kids will build: https://samlin-ai.github.io/vibe-coding-happy-hour/
@@ -30,11 +32,23 @@ Check out these games to see what kids will build: https://samlin-ai.github.io/v
 3. **20 min — Show & Tell** for each team with all.
 4. **10 min — It's a Wrap**
 
+---
+
 ## Why Use the CLI for K12?
 
 1. **Reduced friction**: No more manual copy-pasting. If they want a change, they run the command again or use a "fix" command.
 2. **Tech literacy**: Students learn basic file system navigation (`cd`, `ls`, `mkdir`) while doing something fun.
 3. **Automation**: They see how AI can be used as a tool inside other programs, rather than just a chatbot.
+
+---
+
+## Development Environment
+
+<img src="./res/ai-SandboxIt.png" width="640">
+
+Before the class, set up the development environment according to [dev-env-setup.md](./dev-env-setup.md).
+
+---
 
 ## Coaching Tips for Success
 

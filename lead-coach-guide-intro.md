@@ -15,12 +15,6 @@ The lead coach kicks off the event and introduces AI and Gemini CLI to get every
 
 ---
 
-## Before the Session
-
-Follow [dev-env-setup.md](./dev-env-setup.md) to set it up.
-
----
-
 ## Session Timeline
 
 ### Segment 1 — Welcome & Energy (0:00–0:05)
