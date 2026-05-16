@@ -23,6 +23,8 @@ Follow [dev-env-setup.md](./dev-env-setup.md) to set it up.
 
 ## Session Timeline
 
+**Coach tip:** Segment 4 — Make It Yours is nice to have. Feel free to spend more or less time on it according to team's progess. It's better for team to build a game and get ready for Show & Tell.
+
 ### Segment 1 — Builders Assemble (0:00–0:05)
 
 **Goal:** Get the kids to know each other and name the team together.
@@ -107,10 +109,7 @@ Change the background color to [COLOR] and the font to something fun.
 Add a "Play Again" button on the Game Over screen.
 ```
 
-**Coach tips:** 
-
-1. Let the Prompt Writer read each upgrade request to the group before typing it. This keeps everyone involved and lets kids catch misunderstandings before they happen.
-2. Spend more or less time on this segment according to the progess. It's fine to even skip this entirely if needed.
+**Coach tip:** Let the Prompt Writer read each upgrade request to the group before typing it. This keeps everyone involved and lets kids catch misunderstandings before they happen. 
 
 ---
 
