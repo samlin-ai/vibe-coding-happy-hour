@@ -17,6 +17,13 @@ HTTP_PORT="${HTTP_PORT:-8080}"
 log() { printf '\n\033[1;36m==> %s\033[0m\n' "$*"; }
 warn() { printf '\033[1;33m!! %s\033[0m\n' "$*" >&2; }
 
+log "Configuring git user.name and user.email"
+GIT_USER_NAME="$(whoami)"
+GIT_USER_EMAIL="$(whoami)@csequityai.org"
+git config --global user.name "$GIT_USER_NAME"
+git config --global user.email "$GIT_USER_EMAIL"
+echo "git user.name=$GIT_USER_NAME  user.email=$GIT_USER_EMAIL"
+
 log "Cloning repo (if needed)"
 if [ -d "$REPO_DIR/.git" ]; then
   echo "Repo already exists at $REPO_DIR, pulling latest."
