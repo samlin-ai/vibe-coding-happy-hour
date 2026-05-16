@@ -152,10 +152,10 @@ Merge their kids into another room. Better to have 6–7 kids with one coach tha
 ## What Success Looks Like
 
 By the end of these 30 minutes:
-- Every kid is on camera and has spoken or typed at least once
-- Every kid has watched a game be built from a sentence
-- Every kid knows their breakout room and coach
-- Every kid believes *they* can do what they just saw
+- Every kid is on camera and has spoken or typed at least once.
+- Every kid has watched a game be built from a sentence.
+- Every kid knows their breakout room and coach.
+- Every kid believes *they* can do what they just saw.
 
 The intro doesn't need to teach everything. It needs to make kids want to start. **Shipped beats perfect.**
 

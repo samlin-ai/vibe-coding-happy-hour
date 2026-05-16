@@ -2,7 +2,7 @@
 
 <img src="./res/ai-SandboxIt.png" width="640">
 
-You as a coach should set up the development environment before the session. A Cloud Sandbox is the best choice. Because it runs on a VM as the sandbox, you can allow Gemini CLI to do things automatically (Allow for this session) without manually approving every action.
+As a coach, you should set up the development environment before the session. A Cloud Sandbox is the best choice because it runs on a VM, so you can allow Gemini CLI to do things automatically ("Allow for this session") without manually approving every action.
 
 ---
 

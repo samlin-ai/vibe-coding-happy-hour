@@ -23,7 +23,7 @@ Follow [dev-env-setup.md](./dev-env-setup.md) to set it up.
 
 ## Session Timeline
 
-**Coach tip:** Segment 4 — Make It Yours is nice to have. Feel free to spend more or less time on it according to team's progess. It's better for team to build a game and get ready for Show & Tell.
+**Coach tip:** Segment 4 — Make It Yours is nice to have. Feel free to spend more or less time on it according to the team's progress. It's better for the team to build a game and get ready for Show & Tell.
 
 ### Segment 1 — Builders Assemble (0:00–0:05)
 
@@ -72,9 +72,9 @@ Please fix it.
 
 **Step 3 — Commit the change**
 
-Git is the time machine of your code. It tracks all changes you commit to. So, you and AI have the complete history of the jounery.
+Git is the time machine of your code. It tracks every change you commit, so you and the AI have the complete history of the journey.
 
-Let's commit each change by: [Source Control] > Use the prompt as the Message > [Commit]
+Commit each change by: [Source Control] > Use the prompt as the Message > [Commit].
 
 **Coach tip:** Open [Use version control](https://docs.cloud.google.com/shell/docs/version-control) to give a quick overview if there is time.
 
@@ -109,7 +109,7 @@ Change the background color to [COLOR] and the font to something fun.
 Add a "Play Again" button on the Game Over screen.
 ```
 
-**Coach tip:** Let the Prompt Writer read each upgrade request to the group before typing it. This keeps everyone involved and lets kids catch misunderstandings before they happen. 
+**Coach tip:** Let the Prompt Writer read each upgrade request to the group before typing it. This keeps everyone involved and lets kids catch misunderstandings before they happen.
 
 ---
 
@@ -117,12 +117,12 @@ Add a "Play Again" button on the Game Over screen.
 
 **Goal:** Understand how the game works and is built.
 
-Guide kids try to answer these questions before asking Gemini.
+Guide kids to try to answer these questions before asking Gemini.
 
 1. Ask the team to think and guess how the game works.
-2. Open index.html, and other generated files for a quick look.
-3. To explain how the game works to an [x]-year-old.
-4. Draw an ASCII system diagram to explain how the game works. And then, ask follow-up questions.
+2. Open `index.html` and other generated files for a quick look.
+3. Ask Gemini to explain how the game works to an [x]-year-old.
+4. Ask Gemini to draw an ASCII system diagram of how the game works, then ask follow-up questions.
 
 ---
 
@@ -131,9 +131,9 @@ Guide kids try to answer these questions before asking Gemini.
 **Goal:** Celebrate what they built and reflect.
 
 **Demo the game:**
-- Let each kid play for 30 seconds
-- The Note Taker reads out all the features they added
-- Take a group photo or screenshot
+- Let each kid play for 30 seconds.
+- The Note Taker reads out all the features they added.
+- Take a group photo or screenshot.
 
 **Debrief questions (pick 2–3):**
 1. *"What was the hardest part? How did you solve it?"*
@@ -142,7 +142,7 @@ Guide kids try to answer these questions before asking Gemini.
 4. *"Where else could you use an AI assistant like this?"*
 
 **Give out the win:**
-> "You just built a real game. You are officially game mackers."
+> "You just built a real game. You are officially game makers."
 
 ---
 
@@ -196,10 +196,10 @@ Make the game look more colorful and exciting. Use bright colors and emojis.
 ## What Success Looks Like
 
 By the end of the hour, the team should have:
-- A playable game open in the browser
-- At least one feature each kid contributed
-- An experience of iterating with AI (prompt → test → improve)
-- Confidence that they can build things with code
+- A playable game open in the browser.
+- At least one feature each kid contributed.
+- An experience of iterating with AI (prompt → test → improve).
+- Confidence that they can build things with code.
 
 The game doesn't have to be perfect. **Shipped beats perfect.**
 
