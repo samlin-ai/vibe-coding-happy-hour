@@ -36,14 +36,14 @@ Follow [dev-env-setup.md](./dev-env-setup.md) to set it up.
 **Say to the team:**
 > "You are all game designers today. In one hour, you will build a real game that anyone can play. The AI will write the code — your job is to tell it WHAT to build."
 
-**Activity — 3-minute brainstorm:**
+**Activity — 3-minute think alone and brainstorm together:**
+
 1. Ask each kid to think and write down their answer on a sticky note by themselves for a minute: *"What is your favorite game?"*
-2. Each kid shares their answer, then group them on a whiteboard as a team.
+2. Each kid shares their answer, then group them as a team.
 3. Vote by show of hands to pick the top two.
 4. Combine the top two into a new game as a group.
-5. Ask: *"What happens when you win? What happens when you lose?"*
 
-**Coach tip:** Steer toward web-based games (HTML + JavaScript) — they run instantly in a browser, no install needed.
+**Coach tip:** Combining thinking alone with brainstorming collaboratively (a "hybrid" approach) can generate even better ideas as a team and avoid group thinking.
 
 ---
 
