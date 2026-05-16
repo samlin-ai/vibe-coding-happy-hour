@@ -7,6 +7,7 @@ You as a coach should set up the development environment before the session. A C
 ---
 
 [![Cloud Sandbox Setup](https://img.youtube.com/vi/egmYXLeafws/0.jpg)](https://youtu.be/egmYXLeafws)
+Google Cloud Sandbox Setup Video
 
 ## Cloud Sandbox: Google Cloud Shell Editor via Chrome browser on any device
 

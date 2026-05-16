@@ -107,7 +107,10 @@ Change the background color to [COLOR] and the font to something fun.
 Add a "Play Again" button on the Game Over screen.
 ```
 
-**Coach tip:** Let the Prompt Writer read each upgrade request to the group before typing it. This keeps everyone involved and lets kids catch misunderstandings before they happen.
+**Coach tips:** 
+
+1. Let the Prompt Writer read each upgrade request to the group before typing it. This keeps everyone involved and lets kids catch misunderstandings before they happen.
+2. Spend more or less time on this segment according to the progess. It's fine to even skip this entirely if needed.
 
 ---
 
