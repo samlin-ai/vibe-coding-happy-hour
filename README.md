@@ -48,6 +48,11 @@ Check out these games to see what kids will build: https://samlin-ai.github.io/v
 
 Before the class, set up the development environment according to [dev-env-setup.md](./dev-env-setup.md).
 
+### Google Cloud Sandbox Setup & Demo Video
+
+[![Google Cloud Sandbox Setup & Demo Video](https://img.youtube.com/vi/egmYXLeafws/hqdefault.jpg)](https://youtu.be/egmYXLeafws)
+
+
 ### Vibe Coding on Pixel Tablet and Google Cloud Shell Editor
 
 <img src="./res/vibeCodingOnPixelTablet.png" width="640">
