@@ -20,7 +20,7 @@ Check out these games to see what kids will build: https://samlin-ai.github.io/v
 
 1. **Reduced friction**: No more manual copy-pasting. If they want a change, they run the command again or use a "fix" command.
 2. **Tech literacy**: Students learn basic file system navigation (`cd`, `ls`, `mkdir`) while doing something fun.
-3. **Automation**: To Level 2 Autonomy for they to hand on how AI can do tasks beyond a chatbot generating answers.
+3. **Automation**: To Level 2 Autonomy beyond chatbots. They learn how AI can do tasks beyond generating answers.
 
 <img src="./res/LevelsOfAutonomousAI.png" width="640">
 
