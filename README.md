@@ -1,9 +1,9 @@
 # Vibe Coding Happy Hour
-This is a course to grow K12 students to become AI-native builders, starting from vibe coding their first game.
-
-<img src="./res/csequityai.png" width="360">
+This is a course to grow K12 students to become AI-native builders, starting from vibe coding their first game. 
 
 **Brought to you by: [CSequityAI.org](https://www.csequityai.org/)**
+
+<img src="./res/csequityai.png" width="120">
 
 ---
 
@@ -47,6 +47,10 @@ Check out these games to see what kids will build: https://samlin-ai.github.io/v
 <img src="./res/ai-SandboxIt.png" width="640">
 
 Before the class, set up the development environment according to [dev-env-setup.md](./dev-env-setup.md).
+
+### Vibe Coding on Pixel Tablet and Google Cloud Shell Editor
+
+<img src="./res/vibeCodingOnPixelTablet.png" width="640">
 
 ---
 
