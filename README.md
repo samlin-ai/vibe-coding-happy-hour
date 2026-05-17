@@ -12,9 +12,17 @@ This is a course to grow K12 students to become AI-native builders, starting fro
 3. Practice technical collaboration skills as a team of 3–5.
 4. Practice technical communication skills through Show & Tell.
 
-## Examples
+### Examples
 
 Check out these games to see what kids will build: https://samlin-ai.github.io/vibe-coding-happy-hour/
+
+### Why Use Gemini CLI?
+
+1. **Reduced friction**: No more manual copy-pasting. If they want a change, they run the command again or use a "fix" command.
+2. **Tech literacy**: Students learn basic file system navigation (`cd`, `ls`, `mkdir`) while doing something fun.
+3. **Automation**: To Level 2 Autonomy for they to hand on how AI can do tasks beyond a chatbot generating answers.
+
+<img src="./res/LevelsOfAutonomousAI.png" width="640">
 
 ## 2-Hour Course
 
@@ -29,12 +37,6 @@ Check out these games to see what kids will build: https://samlin-ai.github.io/v
 4. **10 min — It's a Wrap**
 
 **[Slides](https://docs.google.com/presentation/d/1iEOEp5ueOGOGqUgtvu-DLNjHJp_gqi1zeQ7scHNBYZ0/edit?usp=sharing)**
-
-## Why Use the CLI for K12?
-
-1. **Reduced friction**: No more manual copy-pasting. If they want a change, they run the command again or use a "fix" command.
-2. **Tech literacy**: Students learn basic file system navigation (`cd`, `ls`, `mkdir`) while doing something fun.
-3. **Automation**: They see how AI can be used as a tool inside other programs, rather than just a chatbot.
 
 ## Development Environment
 
