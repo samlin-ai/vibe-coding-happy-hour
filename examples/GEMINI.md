@@ -1,10 +1,5 @@
-# Coding Principles
+# Core Principles
 
-## Do
-
-1. Implement the game in a single HTML file: `index.html`.
-
-## Don't
-
-1. Don't research games in the `examples` directory.
+1. Do implement the game in a single HTML file: `index.html` under the working directory.
 2. Don't use any framework.
+3. Don't research games under the `examples` directory.
