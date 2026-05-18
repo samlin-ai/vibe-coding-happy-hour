@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Pippin Peril: Midnight IKEA Edition</title>
+    <style>
+        :root {
+            --ikea-blue: #003d73;
+            --ikea-yellow: #ffdb00;
+            --bg-color: #121212;
+            --panel-bg: rgba(30, 30, 30, 0.9);
+            --text-color: #e0e0e0;
+            --border-color: #444;
+            --accent-color: #ff4136;
+            --health-bg: #222;
+            --health-fill: #2ecc40;
+            --glow-yellow: 0 0 10px rgba(255, 219, 0, 0.5);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Verdana', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        #game-container {
+            width: 95%;
+            max-width: 850px;
+            border: 4px solid var(--ikea-blue);
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            background: #1a1a1a;
+            box-shadow: 0 0 40px rgba(0,0,0,0.8), var(--glow-yellow);
+            border-radius: 12px;
+        }
+
+        #visual-stage {
+            height: 380px;
+            border: 2px solid #333;
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            padding-bottom: 50px;
+            position: relative;
+            background-color: #0d0d0d;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        /* Midnight IKEA Background */
+        .ikea-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 100%;
+            background: 
+                linear-gradient(90deg, #1a1a1a 2px, transparent 2px) 0 0 / 120px 100%,
+                linear-gradient(var(--ikea-blue) 0%, #001a33 100%) 0 0 / 100% 15px no-repeat;
+            z-index: 0;
+            transition: transform 1.2s cubic-bezier(0.45, 0, 0.55, 1);
+        }
+
+        .ikea-shelf {
+            position: absolute;
+            bottom: 40px;
+            width: 70px;
+            height: 180px;
+            background: #2c1a0a;
+            border: 2px solid #1a1108;
+            z-index: 1;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+        }
+        .ikea-shelf::after {
+            content: 'BILLY';
+            font-size: 9px;
+            color: rgba(255,255,255,0.3);
+            position: absolute;
+            top: 8px;
+            left: 8px;
+        }
+
+        .moving .ikea-background { transform: translateX(-50%); }
+
+        .entity {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            z-index: 10;
+        }
+
+        .stat-box {
+            width: 180px;
+            text-align: center;
+            background: var(--panel-bg);
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid #555;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+
+        .health-bar {
+            width: 100%;
+            height: 14px;
+            background: var(--health-bg);
+            border: 1px solid #111;
+            margin-top: 8px;
+            border-radius: 7px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .health-fill {
+            height: 100%;
+            background: linear-gradient(to bottom, #2ecc40, #27ae60);
+            width: 100%;
+            transition: width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        #battle-log {
+            height: 140px;
+            border: 1px solid #444;
+            overflow-y: auto;
+            padding: 12px;
+            font-size: 15px;
+            background: #0a0a0a;
+            border-radius: 8px;
+            color: #aaa;
+        }
+
+        .log-entry { margin-bottom: 6px; }
+        .log-player { color: #00d2ff; font-weight: bold; }
+        .log-enemy { color: #ff4b2b; font-weight: bold; }
+        .log-system { color: var(--ikea-yellow); font-style: italic; }
+
+        #input-area {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        #command-input {
+            background: #222;
+            border: 2px solid #555;
+            color: var(--ikea-yellow);
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            outline: none;
+            font-size: 18px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        #command-input:focus {
+            border-color: var(--ikea-yellow);
+            box-shadow: var(--glow-yellow);
+        }
+
+        .shake { animation: shake 0.5s; }
+        @keyframes shake {
+            0%, 100% { transform: translate(0,0); }
+            10%, 30%, 50%, 70%, 90% { transform: translate(-8px,0); }
+            20%, 40%, 60%, 80% { transform: translate(8px,0); }
+        }
+
+        /* Sprite Art with Glow */
+        .monchick-sprite { position: relative; width: 85px; height: 85px; filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.3)); }
+        .monchick-body { width: 65px; height: 65px; background: #ffd700; border-radius: 50% 50% 40% 40%; position: absolute; bottom: 0; left: 10px; border: 2px solid #000; }
+        .monchick-ears { width: 22px; height: 22px; background: #8b4513; border-radius: 50%; position: absolute; top: 10px; left: 0; box-shadow: 62px 0 0 #8b4513; border: 1px solid #000; }
+        .monchick-beak { width: 18px; height: 12px; background: #ff8c00; position: absolute; top: 42px; left: 34px; clip-path: polygon(0 0, 100% 50%, 0 100%); }
+        .monchick-tail { width: 35px; height: 12px; background: #8b4513; position: absolute; bottom: 22px; left: -18px; border-radius: 10px; transform: rotate(-20deg); border: 1px solid #000; }
+
+        .apple-sprite { position: relative; width: 85px; height: 85px; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); filter: drop-shadow(0 0 8px rgba(255, 0, 0, 0.3)); }
+        .apple-body { width: 75px; height: 75px; background: #d32f2f; border-radius: 45%; position: absolute; bottom: 0; left: 5px; border: 2px solid #000; }
+        .apple-stem { width: 10px; height: 18px; background: #4b2c20; position: absolute; top: 0; left: 38px; }
+        .apple-eyes { width: 12px; height: 12px; background: #fff; border-radius: 50%; position: absolute; top: 25px; left: 22px; box-shadow: 32px 0 0 #fff; border: 1px solid #000; }
+    </style>
+</head>
+<body>
+
+    <h1 style="color: var(--ikea-yellow); margin-bottom: 5px; text-shadow: var(--glow-yellow);">THE PIPPIN PERIL</h1>
+    <p style="margin: 0 0 15px 0; font-size: 13px; color: #888; letter-spacing: 2px;">IKEA MALMÖ - MIDNIGHT SHOWROOM</p>
+
+    <div id="game-container">
+        <div id="visual-stage">
+            <div class="ikea-background" id="bg">
+                <div class="ikea-shelf" style="left: 150px;"></div>
+                <div class="ikea-shelf" style="left: 450px;"></div>
+                <div class="ikea-shelf" style="left: 750px;"></div>
+                <div class="ikea-shelf" style="left: 1100px;"></div>
+            </div>
+
+            <div class="entity" id="player-entity">
+                <div class="stat-box">
+                    <div id="player-name-display" style="color: var(--ikea-yellow); font-weight: bold;">Monchick</div>
+                    <div style="font-size: 12px;">Level <span id="player-level">1</span></div>
+                    <div class="health-bar"><div id="player-health-fill" class="health-fill"></div></div>
+                    <div id="player-hp-text" style="font-size: 13px; margin-top: 4px;">50/50 HP</div>
+                    <div style="font-size: 11px; margin-top: 6px; color: #aaa;">Meatballs: <span id="heals-left" style="color: #2ecc40;">4</span>/4</div>
+                </div>
+                <div class="monchick-sprite" id="player-sprite">
+                    <div class="monchick-tail"></div>
+                    <div class="monchick-ears"></div>
+                    <div class="monchick-body"></div>
+                    <div class="monchick-beak"></div>
+                </div>
+            </div>
+
+            <div class="entity" id="boss-entity">
+                <div class="stat-box">
+                    <div id="boss-name" style="color: var(--accent-color); font-weight: bold;">Mini Gala</div>
+                    <div class="health-bar"><div id="boss-health-fill" class="health-fill"></div></div>
+                    <div id="boss-hp-text" style="font-size: 13px; margin-top: 4px;">30/30 HP</div>
+                </div>
+                <div class="apple-sprite" id="boss-sprite">
+                    <div class="apple-stem"></div>
+                    <div class="apple-body"></div>
+                    <div class="apple-eyes"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="battle-log">
+            <div class="log-entry log-system">The lights flicker. The showroom is silent. Except for the crunching...</div>
+        </div>
+
+        <div id="input-area">
+            <input type="text" id="command-input" placeholder="ATTACK | SCRATCH | DODGE | HEAL" autofocus autocomplete="off">
+        </div>
+    </div>
+
+    <script>
+        // Enhanced Fun Audio Engine
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        
+        function playSound(type) {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            
+            const now = audioCtx.currentTime;
+
+            const createOsc = (freq, type, gainValue, duration, decay = true) => {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = type;
+                osc.frequency.setValueAtTime(freq, now);
+                gain.gain.setValueAtTime(gainValue, now);
+                if (decay) gain.gain.exponentialRampToValueAtTime(0.01, now + duration);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(now);
+                osc.stop(now + duration);
+            };
+
+            switch(type) {
+                case 'hit':
+                    // Layered Thump + Clink
+                    createOsc(150, 'square', 0.2, 0.15);
+                    createOsc(800, 'sine', 0.1, 0.1);
+                    break;
+                case 'scratch':
+                    // Schwing!
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(100, now);
+                    osc.frequency.exponentialRampToValueAtTime(1200, now + 0.15);
+                    gain.gain.setValueAtTime(0.15, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.15);
+                    osc.connect(gain); gain.connect(audioCtx.destination);
+                    osc.start(); osc.stop(now + 0.15);
+                    break;
+                case 'heal':
+                    // Power-Up Arpeggio
+                    [440, 554, 659, 880].forEach((f, i) => {
+                        setTimeout(() => createOsc(f, 'sine', 0.1, 0.2), i * 60);
+                    });
+                    break;
+                case 'dodge':
+                    // Zip!
+                    const dOsc = audioCtx.createOscillator();
+                    const dGain = audioCtx.createGain();
+                    dOsc.frequency.setValueAtTime(200, now);
+                    dOsc.frequency.exponentialRampToValueAtTime(2000, now + 0.1);
+                    dGain.gain.setValueAtTime(0.1, now);
+                    dGain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
+                    dOsc.connect(dGain); dGain.connect(audioCtx.destination);
+                    dOsc.start(); dOsc.stop(now + 0.1);
+                    break;
+                case 'victory':
+                    // RPG Fanfare
+                    const notes = [523, 523, 523, 523, 415, 466, 523];
+                    const times = [0, 0.1, 0.2, 0.3, 0.45, 0.55, 0.7];
+                    notes.forEach((n, i) => {
+                        setTimeout(() => createOsc(n, 'square', 0.08, 0.2), times[i] * 1000);
+                    });
+                    break;
+                case 'levelUp':
+                    // Triumph
+                    createOsc(220, 'sawtooth', 0.1, 0.8);
+                    setTimeout(() => createOsc(440, 'sawtooth', 0.1, 0.8), 100);
+                    setTimeout(() => createOsc(880, 'square', 0.1, 1.0), 200);
+                    break;
+            }
+        }
+
+        const player = {
+            name: "Monchick", level: 1, hp: 50, maxHp: 50, atk: 8, xp: 0, 
+            nextLevelXp: 100, isDodging: false, healsRemaining: 4
+        };
+
+        const bosses = [
+            { name: "Mini Gala", hp: 30, maxHp: 30, atk: 5, xpYield: 50, baseScale: 0.8 },
+            { name: "Grumpy Granny", hp: 60, maxHp: 60, atk: 12, xpYield: 120, baseScale: 1.0 },
+            { name: "Red Devourer", hp: 130, maxHp: 130, atk: 20, xpYield: 250, baseScale: 1.3 },
+            { name: "The Fuji Emperor", hp: 300, maxHp: 300, atk: 35, xpYield: 0, baseScale: 1.8 }
+        ];
+
+        let currentBossIndex = 0;
+        let currentBoss = { ...bosses[0] };
+
+        const logElement = document.getElementById('battle-log');
+        const inputElement = document.getElementById('command-input');
+
+        function addLog(message, type = 'system') {
+            const entry = document.createElement('div');
+            entry.className = `log-entry log-${type}`;
+            entry.innerText = message;
+            logElement.appendChild(entry);
+            logElement.scrollTop = logElement.scrollHeight;
+        }
+
+        function updateUI() {
+            document.getElementById('player-name-display').innerText = player.name;
+            document.getElementById('player-level').innerText = player.level;
+            document.getElementById('player-health-fill').style.width = `${(player.hp / player.maxHp) * 100}%`;
+            document.getElementById('player-hp-text').innerText = `${Math.max(0, player.hp)}/${player.maxHp} HP`;
+            document.getElementById('heals-left').innerText = player.healsRemaining;
+
+            document.getElementById('boss-name').innerText = currentBoss.name;
+            const bossHpRatio = currentBoss.hp / currentBoss.maxHp;
+            document.getElementById('boss-health-fill').style.width = `${bossHpRatio * 100}%`;
+            document.getElementById('boss-hp-text').innerText = `${Math.max(0, currentBoss.hp)}/${currentBoss.maxHp} HP`;
+            
+            const dynamicScale = currentBoss.baseScale * Math.max(0.4, bossHpRatio);
+            document.getElementById('boss-sprite').style.transform = `scale(${dynamicScale})`;
+        }
+
+        function shake(id) {
+            const el = document.getElementById(id);
+            el.classList.remove('shake');
+            void el.offsetWidth;
+            el.classList.add('shake');
+        }
+
+        function playerAction(cmd) {
+            player.isDodging = false;
+
+            switch(cmd) {
+                case 'attack':
+                    const dmg = Math.floor(player.atk * (0.9 + Math.random() * 0.3));
+                    currentBoss.hp -= dmg;
+                    addLog(`${player.name} slams a shopping cart! ${dmg} damage.`, 'player');
+                    playSound('hit');
+                    shake('boss-sprite');
+                    break;
+                case 'scratch':
+                    if (Math.random() > 0.35) {
+                        const sdmg = Math.floor(player.atk * 2.0);
+                        currentBoss.hp -= sdmg;
+                        addLog(`${player.name} uses Sharp Talons! ${sdmg} CRITICAL damage!`, 'player');
+                        playSound('scratch');
+                        shake('boss-sprite');
+                    } else {
+                        addLog(`${player.name} tripped over a rug and missed!`, 'system');
+                        playSound('dodge');
+                    }
+                    break;
+                case 'dodge':
+                    player.isDodging = true;
+                    addLog(`${player.name} rolls into a duvet!`, 'player');
+                    playSound('dodge');
+                    break;
+                case 'heal':
+                    if (player.healsRemaining > 0) {
+                        const amt = Math.floor(player.maxHp * 0.4);
+                        player.hp = Math.min(player.maxHp, player.hp + amt);
+                        player.healsRemaining--;
+                        addLog(`${player.name} devours Swedish Meatballs! +${amt} HP.`, 'player');
+                        playSound('heal');
+                    } else {
+                        addLog(`The Meatball supply is empty! No more healing!`, 'system');
+                        return;
+                    }
+                    break;
+                default:
+                    addLog(`Action "${cmd}" is not in the manual.`, 'system');
+                    return;
+            }
+
+            if (currentBoss.hp <= 0) {
+                defeatBoss();
+            } else {
+                setTimeout(bossAction, 600);
+            }
+            updateUI();
+        }
+
+        function bossAction() {
+            let damage = Math.floor(currentBoss.atk * (0.8 + Math.random() * 0.5));
+            if (player.isDodging) {
+                if (Math.random() > 0.75) {
+                    addLog(`${currentBoss.name} rolls over your duvet! ${damage} damage.`, 'enemy');
+                    player.hp -= damage;
+                    playSound('hit');
+                    shake('player-sprite');
+                } else {
+                    addLog(`${player.name} successfully dodged the core-slam!`, 'system');
+                }
+            } else {
+                addLog(`${currentBoss.name} slams ${player.name}! ${damage} damage.`, 'enemy');
+                player.hp -= damage;
+                playSound('hit');
+                shake('player-sprite');
+            }
+
+            if (player.hp <= 0) {
+                addLog(`CRITICAL FAILURE. ${player.name} has been flat-packed.`, 'enemy');
+                inputElement.disabled = true;
+            }
+            updateUI();
+        }
+
+        function defeatBoss() {
+            addLog(`${currentBoss.name} has been pulped! Victory!`, 'system');
+            playSound('victory');
+            player.xp += currentBoss.xpYield;
+            
+            if (player.xp >= player.nextLevelXp) levelUp();
+
+            currentBossIndex++;
+            if (currentBossIndex < bosses.length) {
+                currentBoss = { ...bosses[currentBossIndex] };
+                player.healsRemaining = 4;
+                
+                document.getElementById('visual-stage').classList.add('moving');
+                addLog(`Advancing to the Kitchen Section...`, 'system');
+                setTimeout(() => {
+                    document.getElementById('visual-stage').classList.remove('moving');
+                    addLog(`A massive ${currentBoss.name} blocks the way!`, 'system');
+                    updateUI();
+                }, 1200);
+            } else {
+                addLog(`ULTIMATE VICTORY! ${player.name} found the exit!`, 'system');
+                inputElement.disabled = true;
+            }
+        }
+
+        function levelUp() {
+            player.level++;
+            player.xp -= player.nextLevelXp;
+            player.nextLevelXp = Math.floor(player.nextLevelXp * 1.6);
+            player.maxHp += 25;
+            player.hp = player.maxHp;
+            player.atk += 6;
+            addLog(`LEVEL UP! ${player.name} is now Lvl ${player.level}! Power surging!`, 'system');
+            playSound('levelUp');
+        }
+
+        inputElement.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const cmd = inputElement.value.toLowerCase().trim();
+                inputElement.value = '';
+                playerAction(cmd);
+            }
+        });
+
+        window.onload = () => {
+            const name = prompt("Name your Monkey-Chicken:", "Monchick");
+            player.name = name || "Monchick";
+            addLog(`Midnight at IKEA. The battle begins for ${player.name}...`, 'system');
+            updateUI();
+        };
+    </script>
+</body>
+</html>
