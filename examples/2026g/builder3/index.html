@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crab Dash</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <!-- HUD -->
+        <div id="hud">
+            <div id="round-display">Round: <span id="round-num">1</span>/10</div>
+            <div id="status-display">Get to the safe zone!</div>
+        </div>
+
+        <!-- Safe Zones -->
+        <div id="top-safe-zone" class="safe-zone">SAFE ZONE</div>
+        <div id="bottom-safe-zone" class="safe-zone">STARTING LINE</div>
+
+        <!-- Players -->
+        <div id="turtle" class="player">
+            <div class="chibi-turtle">
+                <div class="shell"></div>
+                <div class="head">
+                    <div class="eye left"></div>
+                    <div class="eye right"></div>
+                </div>
+                <div class="flipper fl-top-left"></div>
+                <div class="flipper fl-top-right"></div>
+                <div class="flipper fl-bot-left"></div>
+                <div class="flipper fl-bot-right"></div>
+            </div>
+        </div>
+        <div id="axolotl" class="player hidden">
+            <div class="chibi-axolotl">
+                <div class="body"></div>
+                <div class="head">
+                    <div class="eye left"></div>
+                    <div class="eye right"></div>
+                    <div class="gill g-l1"></div>
+                    <div class="gill g-l2"></div>
+                    <div class="gill g-l3"></div>
+                    <div class="gill g-r1"></div>
+                    <div class="gill g-r2"></div>
+                    <div class="gill g-r3"></div>
+                </div>
+                <div class="tail"></div>
+            </div>
+        </div>
+
+        <!-- Overlays -->
+        <div id="menu-overlay" class="overlay">
+            <h1>CRAB DASH</h1>
+            <p>Dodge the crabs and reach the other side!</p>
+            <div class="button-group">
+                <button id="btn-1p">1 Player (Turtle)</button>
+                <button id="btn-2p">2 Players (Turtle & Axolotl)</button>
+            </div>
+            <div class="controls-hint">
+                <p>P1 (🐢): WASD</p>
+                <p>P2 (🦎): Arrows</p>
+            </div>
+        </div>
+
+        <div id="win-overlay" class="overlay hidden">
+            <h1>YOU WIN! 🏆</h1>
+            <p>You dodged all the crabs and reached safety!</p>
+            <div id="victory-video-container"></div>
+            <button class="restart-btn">Play Again</button>
+        </div>
+
+        <div id="game-over-overlay" class="overlay hidden">
+            <h1>GAME OVER! 🦀</h1>
+            <p>The crabs were too fast!</p>
+            <button class="restart-btn">Try Again</button>
+        </div>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html>
