@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>X-Wing Trench Run - High Contrast Edition</title>
+    <style>
+        body { margin: 0; overflow: hidden; background-color: #eee; font-family: 'Courier New', Courier, monospace; }
+        #hud {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #000;
+            pointer-events: none;
+            text-shadow: 0 0 5px #fff;
+        }
+        #crosshair {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 40px;
+            height: 40px;
+            border: 2px solid #000;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+        #crosshair::before, #crosshair::after {
+            content: '';
+            position: absolute;
+            background-color: #000;
+        }
+        #crosshair::before { top: 50%; left: -10px; width: 10px; height: 2px; margin-top: -1px; }
+        #crosshair::after { top: 50%; right: -10px; width: 10px; height: 2px; margin-top: -1px; }
+        #msg {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+            color: #000;
+            font-size: 1.2em;
+        }
+        #level-up {
+            display: none;
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #000;
+            font-size: 4em;
+            text-align: center;
+            text-shadow: 0 0 20px #fff;
+            pointer-events: none;
+            z-index: 10;
+        }
+        .hud-val { font-weight: bold; }
+        #ammo-bar {
+            width: 100px;
+            height: 10px;
+            background: #ccc;
+            border: 1px solid #000;
+            margin-top: 5px;
+        }
+        #ammo-fill {
+            width: 100%;
+            height: 100%;
+            background: #000;
+            transition: width 0.2s;
+        }
+        #reloading-msg {
+            display: none;
+            color: #d00;
+            font-weight: bold;
+            animation: blink 0.5s infinite;
+        }
+        @keyframes blink { 0% { opacity: 0; } 50% { opacity: 1; } 100% { opacity: 0; } }
+    </style>
+</head>
+<body>
+    <div id="hud">
+        <div>SCORE: <span id="score" class="hud-val">0</span></div>
+        <div>SHIELDS: <span id="shields" class="hud-val">100</span>%</div>
+        <div>LEVEL: <span id="level" class="hud-val">1</span></div>
+        <div style="margin-top:10px;">
+            AMMO: <span id="ammo-text" class="hud-val">30</span> / 30
+            <div id="ammo-bar"><div id="ammo-fill"></div></div>
+            <div id="reloading-msg">RELOADING...</div>
+        </div>
+    </div>
+    <div id="crosshair"></div>
+    <div id="msg">WASD to steer | SPACE to fire | R to reload</div>
+    <div id="level-up">LEVEL UP!</div>
+    <div id="game-over" style="display:none; position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); color:#f00; font-size:3em; text-align:center; text-shadow:0 0 10px #f00;">
+        GAME OVER<br>
+        <span style="font-size:0.4em; color:#000;">Refresh to Restart</span>
+    </div>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+
+        // --- Audio System (Web Audio API) ---
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        
+        function playSound(type) {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            const now = audioCtx.currentTime;
+            if (type === 'laser') {
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(880, now);
+                osc.frequency.exponentialRampToValueAtTime(110, now + 0.1);
+                gain.gain.setValueAtTime(0.1, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
+                osc.start(now); osc.stop(now + 0.1);
+            } else if (type === 'enemy-laser') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(440, now);
+                osc.frequency.exponentialRampToValueAtTime(55, now + 0.1);
+                gain.gain.setValueAtTime(0.05, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
+                osc.start(now); osc.stop(now + 0.1);
+            } else if (type === 'hit') {
+                osc.type = 'square';
+                osc.frequency.setValueAtTime(100, now);
+                osc.frequency.linearRampToValueAtTime(10, now + 0.2);
+                gain.gain.setValueAtTime(0.2, now);
+                gain.gain.linearRampToValueAtTime(0.01, now + 0.2);
+                osc.start(now); osc.stop(now + 0.2);
+            } else if (type === 'pickup') {
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(523.25, now);
+                osc.frequency.setValueAtTime(659.25, now + 0.1);
+                osc.frequency.setValueAtTime(783.99, now + 0.2);
+                gain.gain.setValueAtTime(0.1, now);
+                gain.gain.linearRampToValueAtTime(0.01, now + 0.3);
+                osc.start(now); osc.stop(now + 0.3);
+            } else if (type === 'level-up') {
+                osc.type = 'square';
+                [440, 554, 659, 880].forEach((f, i) => osc.frequency.setValueAtTime(f, now + i * 0.1));
+                gain.gain.setValueAtTime(0.1, now);
+                gain.gain.linearRampToValueAtTime(0.01, now + 0.5);
+                osc.start(now); osc.stop(now + 0.5);
+            } else if (type === 'empty') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(50, now);
+                gain.gain.setValueAtTime(0.2, now);
+                gain.gain.linearRampToValueAtTime(0.01, now + 0.1);
+                osc.start(now); osc.stop(now + 0.1);
+            } else if (type === 'shield-low') {
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(220, now);
+                osc.frequency.setValueAtTime(110, now + 0.1);
+                gain.gain.setValueAtTime(0.05, now);
+                gain.gain.linearRampToValueAtTime(0.01, now + 0.2);
+                osc.start(now); osc.stop(now + 0.2);
+            }
+        }
+
+        // --- Configuration ---
+        const TRENCH_WIDTH = 40;
+        const TRENCH_HEIGHT = 20;
+        const TRENCH_LENGTH = 100;
+        let SPEED = 60;
+        const LASER_SPEED = 250;
+        const MAX_AMMO = 30;
+
+        // --- Game State ---
+        let score = 0;
+        let shields = 100;
+        let level = 1;
+        let scoreToNextLevel = 1000;
+        let isGameOver = false;
+        let keys = {};
+        let lasers = [];
+        let enemyLasers = [];
+        let trenchSegments = [];
+        let obstacles = [];
+        let enemies = [];
+        let prizes = [];
+        let ammo = MAX_AMMO;
+        let isReloading = false;
+        let lastLowShieldTime = 0;
+
+        // LIGHT BACKGROUND THEMES
+        const levelThemes = [
+            { wall: 0xeeeeee, fog: 0xffffff, name: "Cloud City" },
+            { wall: 0xfff0e0, fog: 0xffe0c0, name: "Sandstorm" },
+            { wall: 0xe0f0ff, fog: 0xd0e0ff, name: "Ice Field" },
+            { wall: 0xf0f0f0, fog: 0xdddddd, name: "Base Alpha" }
+        ];
+
+        // --- Three.js Setup ---
+        const scene = new THREE.Scene();
+        scene.fog = new THREE.Fog(0xffffff, 50, 250);
+
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(0, 5, 0);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setClearColor(0xffffff);
+        document.body.appendChild(renderer.domElement);
+
+        const ambientLight = new THREE.AmbientLight(0xcccccc, 2);
+        scene.add(ambientLight);
+
+        const sunLight = new THREE.DirectionalLight(0xffffff, 1);
+        sunLight.position.set(5, 10, 7);
+        scene.add(sunLight);
+
+        // --- Materials ---
+        let wallMaterial = new THREE.MeshPhongMaterial({ 
+            color: levelThemes[0].wall, 
+            specular: 0x333333, 
+            shininess: 10,
+            flatShading: true
+        });
+
+        const obstacleMaterial = new THREE.MeshPhongMaterial({ 
+            color: 0x999999, 
+            specular: 0x333333, 
+            shininess: 20,
+            flatShading: true
+        });
+
+        // DARK ENEMY MATERIAL
+        const tieMaterial = new THREE.MeshPhongMaterial({
+            color: 0x111111,
+            specular: 0x000000,
+            shininess: 0
+        });
+
+        const prizeMaterial = new THREE.MeshPhongMaterial({
+            color: 0x000000,
+            emissive: 0x222200,
+            shininess: 100
+        });
+
+        // --- Models ---
+        function createTieFighter(zPos) {
+            const group = new THREE.Group();
+            const cockpitGeo = new THREE.SphereGeometry(2, 8, 8);
+            const cockpit = new THREE.Mesh(cockpitGeo, tieMaterial);
+            group.add(cockpit);
+            const wingGeo = new THREE.BoxGeometry(0.5, 8, 8);
+            [-3, 3].forEach(x => {
+                const wing = new THREE.Mesh(wingGeo, tieMaterial);
+                wing.position.x = x;
+                group.add(wing);
+                const armGeo = new THREE.BoxGeometry(3, 0.5, 0.5);
+                const arm = new THREE.Mesh(armGeo, tieMaterial);
+                arm.position.x = x / 2;
+                group.add(arm);
+            });
+            group.position.set((Math.random() - 0.5) * (TRENCH_WIDTH - 10), Math.random() * (TRENCH_HEIGHT - 10) + 5, zPos);
+            group.userData.bounds = new THREE.Box3().setFromObject(group);
+            scene.add(group);
+            return group;
+        }
+
+        function createPrize(zPos) {
+            const geo = new THREE.BoxGeometry(2, 2, 2);
+            const mesh = new THREE.Mesh(geo, prizeMaterial);
+            mesh.position.set((Math.random() - 0.5) * (TRENCH_WIDTH - 5), Math.random() * (TRENCH_HEIGHT - 5) + 2.5, zPos);
+            mesh.userData.type = Math.random() > 0.5 ? 'shield' : 'ammo';
+            if (mesh.userData.type === 'shield') mesh.material = new THREE.MeshPhongMaterial({ color: 0x004444, emissive: 0x001111 });
+            mesh.userData.bounds = new THREE.Box3().setFromObject(mesh);
+            scene.add(mesh);
+            return mesh;
+        }
+
+        function createTrenchSegment(zPos) {
+            const group = new THREE.Group();
+            const floorGeo = new THREE.PlaneGeometry(TRENCH_WIDTH, TRENCH_LENGTH);
+            const floor = new THREE.Mesh(floorGeo, wallMaterial);
+            floor.rotation.x = -Math.PI / 2;
+            group.add(floor);
+            const wallGeo = new THREE.PlaneGeometry(TRENCH_LENGTH, TRENCH_HEIGHT);
+            const leftWall = new THREE.Mesh(wallGeo, wallMaterial);
+            leftWall.position.set(-TRENCH_WIDTH / 2, TRENCH_HEIGHT / 2, 0);
+            leftWall.rotation.y = Math.PI / 2;
+            group.add(leftWall);
+            const rightWall = new THREE.Mesh(wallGeo, wallMaterial);
+            rightWall.position.set(TRENCH_WIDTH / 2, TRENCH_HEIGHT / 2, 0);
+            rightWall.rotation.y = -Math.PI / 2;
+            group.add(rightWall);
+            for (let i = 0; i < 15; i++) {
+                const greebleGeo = new THREE.BoxGeometry(Math.random() * 2 + 1, Math.random() * 2 + 1, Math.random() * 5 + 2);
+                const greeble = new THREE.Mesh(greebleGeo, wallMaterial);
+                const wallSide = Math.random() > 0.5 ? 1 : -1;
+                greeble.position.set(wallSide * (TRENCH_WIDTH / 2 - 0.5), Math.random() * TRENCH_HEIGHT, (Math.random() - 0.5) * TRENCH_LENGTH);
+                group.add(greeble);
+            }
+            group.position.z = zPos;
+            scene.add(group);
+            return group;
+        }
+
+        for (let i = 0; i < 5; i++) {
+            trenchSegments.push(createTrenchSegment(-i * TRENCH_LENGTH));
+        }
+
+        function createObstacle(zPos) {
+            const width = Math.random() * 12 + 4;
+            const height = Math.random() * 12 + 4;
+            const geo = new THREE.BoxGeometry(width, height, 5);
+            const mesh = new THREE.Mesh(geo, obstacleMaterial);
+            mesh.position.set((Math.random() - 0.5) * (TRENCH_WIDTH - width), Math.random() * (TRENCH_HEIGHT - height) + height/2, zPos);
+            mesh.userData.bounds = new THREE.Box3().setFromObject(mesh);
+            scene.add(mesh);
+            return mesh;
+        }
+
+        function fireLaser() {
+            if (isGameOver || isReloading) return;
+            if (ammo <= 0) { playSound('empty'); reload(); return; }
+            ammo--; updateAmmoHUD(); playSound('laser');
+            const geo = new THREE.CylinderGeometry(0.1, 0.1, 5);
+            geo.rotateX(Math.PI / 2);
+            const mat = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+            let laserOffsets = [[-2, -1], [2, -1]];
+            if (level >= 3) laserOffsets = [[-2, -1], [2, -1], [-4, 3], [4, 3]];
+            laserOffsets.forEach(offset => {
+                const laser = new THREE.Mesh(geo, mat);
+                laser.position.copy(camera.position);
+                laser.position.x += offset[0];
+                laser.position.y += offset[1];
+                scene.add(laser);
+                lasers.push(laser);
+            });
+        }
+
+        function reload() {
+            if (isReloading || ammo === MAX_AMMO) return;
+            isReloading = true;
+            document.getElementById('reloading-msg').style.display = 'block';
+            setTimeout(() => {
+                ammo = MAX_AMMO;
+                isReloading = false;
+                updateAmmoHUD();
+                document.getElementById('reloading-msg').style.display = 'none';
+            }, 1500);
+        }
+
+        function updateAmmoHUD() {
+            document.getElementById('ammo-text').innerText = ammo;
+            document.getElementById('ammo-fill').style.width = `${(ammo / MAX_AMMO) * 100}%`;
+        }
+
+        function fireEnemyLaser(position) {
+            const geo = new THREE.CylinderGeometry(0.2, 0.2, 5);
+            geo.rotateX(Math.PI / 2);
+            const mat = new THREE.MeshBasicMaterial({ color: 0x000000 }); // BLACK LASERS
+            const laser = new THREE.Mesh(geo, mat);
+            laser.position.copy(position);
+            scene.add(laser);
+            enemyLasers.push(laser);
+            playSound('enemy-laser');
+        }
+
+        window.addEventListener('keydown', (e) => {
+            keys[e.code] = true;
+            if (e.code === 'Space') fireLaser();
+            if (e.code === 'KeyR') reload();
+        });
+        window.addEventListener('keyup', (e) => keys[e.code] = false);
+
+        const clock = new THREE.Clock();
+
+        function animate() {
+            requestAnimationFrame(animate);
+            if (isGameOver) return;
+            const delta = clock.getDelta();
+            const moveStep = SPEED * delta;
+            if (shields < 30 && Date.now() - lastLowShieldTime > 2000) {
+                playSound('shield-low'); lastLowShieldTime = Date.now();
+            }
+            if (score >= scoreToNextLevel) {
+                level++; scoreToNextLevel += 1000 + (level * 500); SPEED += 15;
+                updateLevelTheme(); playSound('level-up');
+            }
+            trenchSegments.forEach(seg => {
+                seg.position.z += moveStep;
+                if (seg.position.z > TRENCH_LENGTH) seg.position.z -= TRENCH_LENGTH * 5;
+            });
+            obstacles.forEach((obs, index) => {
+                obs.position.z += moveStep;
+                obs.userData.bounds.setFromObject(obs);
+                if (Math.abs(obs.position.z - camera.position.z) < 3 && obs.userData.bounds.containsPoint(camera.position)) {
+                    takeDamage(25); scene.remove(obs); obstacles.splice(index, 1);
+                }
+                if (obs.position.z > 20) { scene.remove(obs); obstacles.splice(index, 1); }
+            });
+
+            // STATIONARY ENEMIES (They move with the trench)
+            enemies.forEach((enemy, index) => {
+                enemy.position.z += moveStep; // They stay in place relative to trench
+                enemy.userData.bounds.setFromObject(enemy);
+                if (Math.random() < 0.005) fireEnemyLaser(enemy.position);
+                if (Math.abs(enemy.position.z - camera.position.z) < 5 && enemy.userData.bounds.containsPoint(camera.position)) {
+                    takeDamage(40); scene.remove(enemy); enemies.splice(index, 1);
+                }
+                if (enemy.position.z > 20) { scene.remove(enemy); enemies.splice(index, 1); }
+            });
+
+            prizes.forEach((prize, index) => {
+                prize.position.z += moveStep;
+                prize.rotation.y += delta * 2;
+                prize.userData.bounds.setFromObject(prize);
+                if (Math.abs(prize.position.z - camera.position.z) < 5 && prize.userData.bounds.containsPoint(camera.position)) {
+                    if (prize.userData.type === 'shield') {
+                        shields = Math.min(100, shields + 25);
+                        document.getElementById('shields').innerText = shields;
+                    } else { ammo = MAX_AMMO; updateAmmoHUD(); }
+                    playSound('pickup'); scene.remove(prize); prizes.splice(index, 1);
+                }
+                if (prize.position.z > 20) { scene.remove(prize); prizes.splice(index, 1); }
+            });
+            if (Math.random() < 0.02 + (level * 0.005)) {
+                const rand = Math.random();
+                if (rand < 0.2) {
+                    if (enemies.length < 5) enemies.push(createTieFighter(-TRENCH_LENGTH * 3));
+                } else if (rand < 0.25) {
+                    if (prizes.length < 2) prizes.push(createPrize(-TRENCH_LENGTH * 2));
+                } else {
+                    if (obstacles.length < 6) obstacles.push(createObstacle(-TRENCH_LENGTH * 2.5));
+                }
+            }
+            if (keys['KeyW'] || keys['ArrowUp']) camera.position.y += moveStep * 0.7;
+            if (keys['KeyS'] || keys['ArrowDown']) camera.position.y -= moveStep * 0.7;
+            if (keys['KeyA'] || keys['ArrowLeft']) camera.position.x -= moveStep * 0.7;
+            if (keys['KeyD'] || keys['ArrowRight']) camera.position.x += moveStep * 0.7;
+            camera.position.x = Math.max(-TRENCH_WIDTH/2 + 2, Math.min(TRENCH_WIDTH/2 - 2, camera.position.x));
+            camera.position.y = Math.max(1.5, Math.min(TRENCH_HEIGHT - 1.5, camera.position.y));
+            const tiltTarget = (keys['KeyA'] || keys['ArrowLeft']) ? 0.15 : (keys['KeyD'] || keys['ArrowRight']) ? -0.15 : 0;
+            camera.rotation.z = THREE.MathUtils.lerp(camera.rotation.z, tiltTarget, 0.1);
+            camera.rotation.y = THREE.MathUtils.lerp(camera.rotation.y, -camera.position.x * 0.01, 0.1);
+            lasers.forEach((laser, index) => {
+                laser.position.z -= LASER_SPEED * delta;
+                for (let i = 0; i < obstacles.length; i++) {
+                    const obs = obstacles[i];
+                    if (laser.position.distanceTo(obs.position) < 8 && obs.userData.bounds.containsPoint(laser.position)) {
+                        scene.remove(obs); scene.remove(laser); lasers.splice(index, 1); obstacles.splice(i, 1);
+                        score += 100; updateScore(); return;
+                    }
+                }
+                for (let i = 0; i < enemies.length; i++) {
+                    const enemy = enemies[i];
+                    if (laser.position.distanceTo(enemy.position) < 10 && enemy.userData.bounds.containsPoint(laser.position)) {
+                        scene.remove(enemy); scene.remove(laser); lasers.splice(index, 1); enemies.splice(i, 1);
+                        score += 250; updateScore(); return;
+                    }
+                }
+                if (laser.position.z < -500) { scene.remove(laser); lasers.splice(index, 1); }
+            });
+            enemyLasers.forEach((laser, index) => {
+                laser.position.z += (SPEED + 150) * delta;
+                if (laser.position.distanceTo(camera.position) < 3) {
+                    takeDamage(10); scene.remove(laser); enemyLasers.splice(index, 1);
+                }
+                if (laser.position.z > 20) { scene.remove(laser); enemyLasers.splice(index, 1); }
+            });
+            renderer.render(scene, camera);
+        }
+        function updateScore() { document.getElementById('score').innerText = score; }
+        function updateLevelTheme() {
+            const themeIndex = (level - 1) % levelThemes.length;
+            const theme = levelThemes[themeIndex];
+            wallMaterial.color.setHex(theme.wall);
+            scene.fog.color.setHex(theme.fog);
+            renderer.setClearColor(theme.fog);
+            document.getElementById('level').innerText = level;
+            const lvlUp = document.getElementById('level-up');
+            lvlUp.innerText = `LEVEL ${level}\n${theme.name}`;
+            lvlUp.style.display = 'block';
+            setTimeout(() => { lvlUp.style.display = 'none'; }, 2000);
+        }
+        function takeDamage(amount) {
+            shields = Math.max(0, shields - amount);
+            document.getElementById('shields').innerText = shields;
+            playSound('hit');
+            renderer.setClearColor(0xff0000);
+            setTimeout(() => {
+                const themeIndex = (level - 1) % levelThemes.length;
+                renderer.setClearColor(levelThemes[themeIndex].fog);
+            }, 50);
+            if (shields <= 0) gameOver();
+        }
+        function gameOver() {
+            isGameOver = true;
+            document.getElementById('game-over').style.display = 'block';
+            document.getElementById('msg').style.display = 'none';
+        }
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+        animate();
+    </script>
+</body>
+</html>
