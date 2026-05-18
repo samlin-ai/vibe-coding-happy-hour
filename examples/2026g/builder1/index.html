@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wall Defenders RPG</title>
+    <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
+    <style>
+        :root {
+            --bg: #0a0a0f;
+            --panel: #16161f;
+            --accent: #00f2ff;
+            --fire: #ff4d00;
+            --poison: #39ff14;
+            --text: #e0e0ff;
+            --builder: #00d4ff;
+            --defender: #ff0055;
+            --mage: #a020f0;
+        }
+
+        body, html {
+            margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden;
+            background: var(--bg); color: var(--text);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        #game-container { position: relative; width: 100vw; height: 100vh; }
+        canvas { display: block; }
+        .hidden { display: none !important; }
+
+        /* Lobby UI */
+        #lobby {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            background: var(--panel); padding: 2rem; border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.1);
+            text-align: center; z-index: 100; width: 320px;
+        }
+
+        h1 { margin-top: 0; font-size: 1.5rem; color: var(--accent); text-transform: uppercase; letter-spacing: 2px; }
+
+        .btn {
+            display: block; width: 100%; padding: 10px; margin: 10px 0; border: none; border-radius: 4px;
+            background: var(--accent); color: var(--bg); font-weight: bold; cursor: pointer; transition: opacity 0.2s;
+        }
+        .btn:hover { opacity: 0.9; }
+        .btn.secondary { background: #333; color: white; }
+
+        input {
+            width: calc(100% - 20px); padding: 10px; margin: 10px 0; background: #222;
+            border: 1px solid #444; color: white; border-radius: 4px; text-align: center;
+            font-size: 1.2rem; text-transform: uppercase;
+        }
+
+        #role-select { margin-top: 20px; }
+        .role-card {
+            background: #222; margin: 10px 0; padding: 10px; border-radius: 8px; cursor: pointer;
+            border: 2px solid transparent; transition: all 0.2s;
+        }
+        .role-card:hover { border-color: var(--accent); }
+        .role-card.selected { border-color: var(--accent); background: #2a2a35; }
+        #role-builder { color: var(--builder); }
+        #role-defender { color: var(--defender); }
+        #role-mage { color: var(--mage); }
+
+        /* HUD */
+        #hud { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+        #timer-container {
+            position: absolute; top: 20px; right: 20px; background: rgba(0,0,0,0.7);
+            padding: 10px 20px; border-radius: 8px; border: 2px solid var(--accent);
+            text-align: center; font-weight: bold; color: var(--accent);
+        }
+        #timer-value { font-size: 1.5rem; }
+        #kills-container {
+            position: absolute; top: 80px; right: 20px; background: rgba(0,0,0,0.7);
+            padding: 5px 15px; border-radius: 8px; border: 1px solid var(--defender); color: var(--defender);
+        }
+        #kill-feed {
+            position: absolute; top: 20px; left: 20px; max-height: 200px; overflow: hidden;
+            font-size: 0.85rem; text-shadow: 1px 1px 2px black;
+        }
+        .feed-msg { margin-bottom: 4px; animation: fadeIn 0.3s forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
+
+        #wall-health-container {
+            position: absolute; top: 20px; left: 50%; transform: translateX(-50%);
+            width: 300px; height: 20px; background: rgba(0,0,0,0.5); border: 2px solid #555; border-radius: 10px; overflow: hidden;
+        }
+        #wall-health-bar { width: 100%; height: 100%; background: linear-gradient(90deg, #ff0055, #ff4d00); transition: width 0.3s; }
+
+        #mini-map {
+            position: absolute; bottom: 20px; right: 20px; width: 150px; height: 150px;
+            background: rgba(0,0,0,0.7); border: 2px solid var(--accent); border-radius: 4px;
+        }
+
+        #game-info {
+            position: absolute; top: 50px; left: 50%; transform: translateX(-50%);
+            text-align: center; font-size: 1.2rem; font-weight: bold; color: var(--accent);
+        }
+
+        #shop-overlay, #help-overlay {
+            display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            background: var(--panel); padding: 2rem; border-radius: 12px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.8); border: 2px solid var(--accent);
+            z-index: 200; width: 320px; pointer-events: auto;
+        }
+        #help-overlay { width: 400px; text-align: left; }
+        #help-overlay h2 { color: var(--accent); margin-top: 0; }
+        #help-overlay ul { padding-left: 20px; }
+        #help-overlay li { margin: 8px 0; font-size: 0.9rem; }
+
+        .shop-item { display: flex; justify-content: space-between; align-items: center; background: #222; padding: 10px; margin: 10px 0; border-radius: 8px; }
+        .shop-item button { background: var(--accent); border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+
+        #btn-open-shop {
+            position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%);
+            background: var(--panel); color: var(--accent); border: 1px solid var(--accent);
+            padding: 10px 20px; border-radius: 20px; cursor: pointer; pointer-events: auto; font-weight: bold;
+        }
+
+        #btn-switch-role {
+            position: absolute; bottom: 80px; right: 20px; background: rgba(0,0,0,0.7);
+            color: white; border: 1px solid #555; padding: 8px 15px; border-radius: 4px;
+            cursor: pointer; pointer-events: auto; font-size: 0.8rem;
+        }
+
+        #btn-how-to { margin-top: 5px; font-size: 0.8rem; text-decoration: underline; cursor: pointer; color: var(--accent); opacity: 0.8; }
+
+        #status-overlay {
+            position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+            background: rgba(0,0,0,0.8); padding: 10px 20px; border-radius: 20px;
+            border: 1px solid var(--accent); display: flex; gap: 20px; pointer-events: auto;
+        }
+        #debug-log { position: absolute; bottom: 5px; left: 5px; font-size: 10px; color: rgba(255,255,255,0.3); pointer-events: none; z-index: 1000; }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <canvas id="gameCanvas"></canvas>
+        
+        <div id="lobby">
+            <div id="initial-menu">
+                <h1>Wall Defenders</h1>
+                <button class="btn" id="btn-host">HOST MULTIPLAYER</button>
+                <button class="btn secondary" id="btn-join-menu">JOIN WITH CODE</button>
+                <button class="btn secondary" id="btn-single">SINGLE PLAYER (Local)</button>
+                <div id="btn-how-to" onclick="toggleHelp()">HOW TO PLAY?</div>
+            </div>
+
+            <div id="join-menu" class="hidden">
+                <h1>Enter Code</h1>
+                <input type="text" id="join-code" placeholder="4-CHAR CODE" maxlength="4">
+                <button class="btn" id="btn-join-confirm">JOIN</button>
+                <button class="btn secondary" id="btn-back">BACK</button>
+            </div>
+
+            <div id="role-select" class="hidden">
+                <h1>Choose Role</h1>
+                <div class="role-card" data-role="builder" id="role-builder"><h3>BUILDER</h3><p>Build Wall & Fire Traps</p></div>
+                <div class="role-card" data-role="defender" id="role-defender"><h3>DEFENDER</h3><p>Tank & Poison Attacks</p></div>
+                <div class="role-card" data-role="mage" id="role-mage"><h3>MAGE</h3><p>Fireball & Poison Cloud</p></div>
+                <button class="btn" id="btn-start" disabled>SELECT A ROLE</button>
+                <button class="btn secondary" id="btn-role-back">BACK</button>
+            </div>
+
+            <div id="hosting-info" class="hidden">
+                <h1>Lobby Code</h1>
+                <div id="display-code" style="font-size: 2rem; color: var(--accent); margin: 10px 0;">----</div>
+                <p>Share code with friends</p>
+            </div>
+            <div id="connection-status" style="margin-top: 20px; font-size: 0.8rem; color: #888;"></div>
+        </div>
+
+        <div id="hud" class="hidden">
+            <div id="kill-feed"></div>
+            <div id="timer-container"><div style="font-size:0.7rem;opacity:0.7;">TIME REMAINING</div><div id="timer-value">05:00</div></div>
+            <div id="kills-container">KILLS: 0</div>
+            <div id="wall-health-container"><div id="wall-health-bar"></div></div>
+            <div id="game-info">WAVE 1</div>
+            <canvas id="mini-map"></canvas>
+            
+            <button id="btn-open-shop">UPGRADE SHOP</button>
+            <button id="btn-switch-role" onclick="switchRoleMenu()">SWITCH ROLE</button>
+
+            <div id="shop-overlay">
+                <h1>Upgrades</h1>
+                <div class="shop-item"><span>Speed</span><button onclick="buyUpgrade('speed')">50 XP</button></div>
+                <div class="shop-item"><span>Damage</span><button onclick="buyUpgrade('damage')">50 XP</button></div>
+                <div class="shop-item"><span>Build Potency</span><button onclick="buyUpgrade('build')">50 XP</button></div>
+                <button class="btn secondary" onclick="toggleShop()">CLOSE</button>
+            </div>
+
+            <div id="status-overlay">
+                <div id="player-role">ROLE: ---</div><div id="player-xp">XP: 0</div><div id="player-bricks">BRICKS: 0</div>
+            </div>
+        </div>
+
+        <div id="help-overlay">
+            <h2>How to Play</h2>
+            <p><strong>Goal:</strong> Defend the wall for 5 minutes!</p>
+            <ul>
+                <li><strong>WASD / Arrows:</strong> Move character.</li>
+                <li><strong>Left Click:</strong> Attack or place traps.</li>
+                <li><strong>Bricks (Squares):</strong> Walk over them to pick up, then touch the Wall (bottom of screen) to repair it.</li>
+                <li><strong>XP:</strong> Earned from kills. Spend it in the Shop.</li>
+            </ul>
+            <p><strong>Roles:</strong></p>
+            <ul>
+                <li><span style="color:var(--builder)">Builder:</span> Places <strong>Fire Traps</strong>. Best at wall repair.</li>
+                <li><span style="color:var(--defender)">Defender:</span> Melee <strong>Poison Blade</strong>. Slows monsters.</li>
+                <li><span style="color:var(--mage)">Mage:</span> Ranged <strong>Fireballs</strong>. High AOE damage.</li>
+            </ul>
+            <button class="btn" onclick="toggleHelp()">GOT IT!</button>
+        </div>
+        <div id="debug-log"></div>
+    </div>
+
+    <script>
+        window.onerror = function(m, u, l) { document.getElementById('debug-log').innerText = `ERR: ${m} (line ${l})`; };
+
+        const WORLD_WIDTH = 2000; const WORLD_HEIGHT = 2000;
+        const WALL_X = WORLD_WIDTH / 2; const WALL_Y = WORLD_HEIGHT - 100;
+        const WALL_WIDTH = 600; const WALL_HEIGHT = 40;
+
+        let peer = null; let connections = []; let isHost = false;
+        let myId = "local-" + Math.random().toString(36).substring(2, 6);
+        let myRole = null; let gameCode = null; let isMultiplayer = false;
+        let lobbyEl, initialMenuEl, joinMenuEl, roleSelectEl, hostingInfoEl, displayCodeEl, hudEl, statusEl;
+
+        window.addEventListener('DOMContentLoaded', () => {
+            lobbyEl = document.getElementById('lobby'); initialMenuEl = document.getElementById('initial-menu');
+            joinMenuEl = document.getElementById('join-menu'); roleSelectEl = document.getElementById('role-select');
+            hostingInfoEl = document.getElementById('hosting-info'); displayCodeEl = document.getElementById('display-code');
+            hudEl = document.getElementById('hud'); statusEl = document.getElementById('connection-status');
+
+            document.getElementById('btn-host').onclick = () => { isHost = true; isMultiplayer = true; initPeer(); };
+            document.getElementById('btn-join-menu').onclick = () => { initialMenuEl.classList.add('hidden'); joinMenuEl.classList.remove('hidden'); };
+            document.getElementById('btn-single').onclick = () => { isHost = true; isMultiplayer = false; initialMenuEl.classList.add('hidden'); roleSelectEl.classList.remove('hidden'); setStatus("Single Player Mode"); };
+            document.getElementById('btn-back').onclick = () => { joinMenuEl.classList.add('hidden'); initialMenuEl.classList.remove('hidden'); };
+            document.getElementById('btn-role-back').onclick = () => { roleSelectEl.classList.add('hidden'); initialMenuEl.classList.remove('hidden'); };
+            document.getElementById('btn-join-confirm').onclick = () => { const c = document.getElementById('join-code').value.toUpperCase(); if (c.length === 4) { gameCode = c; isMultiplayer = true; initPeer(c); } };
+
+            document.querySelectorAll('.role-card').forEach(card => {
+                card.onclick = () => {
+                    document.querySelectorAll('.role-card').forEach(c => c.classList.remove('selected'));
+                    card.classList.add('selected'); myRole = card.dataset.role;
+                    document.getElementById('btn-start').disabled = false;
+                    document.getElementById('btn-start').innerText = isMultiplayer ? (isHost ? "START GAME" : "READY") : "START GAME";
+                };
+            });
+
+            document.getElementById('btn-start').onclick = () => {
+                if (isMultiplayer) {
+                    if (isHost) { startGame(); broadcast({ type: 'start_game' }); }
+                    else { sendToHost({ type: 'ready', role: myRole }); document.getElementById('btn-start').innerText = "READY!"; document.getElementById('btn-start').disabled = true; }
+                } else startGame();
+            };
+            initGame();
+        });
+
+        function setStatus(m, e = false) { if (statusEl) { statusEl.innerText = m; statusEl.style.color = e ? "#ff4444" : "#888"; } console.log(`[Game] ${m}`); }
+        function initPeer(t = null) {
+            if (typeof Peer === 'undefined') { setStatus("Library fail.", true); return; }
+            if (peer) peer.destroy(); setStatus("Connecting...");
+            const p = "WD-"; let id = isHost ? p + Math.random().toString(36).substring(2, 6).toUpperCase() : null;
+            try {
+                peer = new Peer(id, { debug: 1 });
+                peer.on('open', (id) => { myId = id; if (isHost) { gameCode = id.replace(p, ""); displayCodeEl.innerText = gameCode; initialMenuEl.classList.add('hidden'); hostingInfoEl.classList.remove('hidden'); roleSelectEl.classList.remove('hidden'); } else { setStatus("Syncing..."); connectToHost(p + t); } });
+                peer.on('connection', (c) => { connections.push(c); setupConn(c); addFeedMessage("Player Joined"); });
+                peer.on('error', (err) => setStatus("Err: " + err.type, true));
+            } catch (e) { setStatus("Fail: " + e.message, true); }
+        }
+        function connectToHost(h) { const c = peer.connect(h); connections.push(c); setupConn(c); c.on('open', () => { joinMenuEl.classList.add('hidden'); roleSelectEl.classList.remove('hidden'); }); }
+        function setupConn(c) { c.on('data', (d) => handleData(d, c)); c.on('close', () => { connections = connections.filter(x => x !== c); addFeedMessage("Player Left"); }); }
+
+        let gameState = { players: {}, monsters: [], bricks: [], effects: [], wallHealth: 1000, maxWallHealth: 1000, wave: 1, xp: 0, level: 1, nextXp: 100, timeLeft: 300000, totalKills: 0 };
+        let keys = {}; let mouse = { x: 0, y: 0, pressed: false }; let camera = { x: 0, y: 0 }; let lastTime = 0; let screenShake = 0; let isGameRunning = false;
+        let canvas, ctx, miniCanvas, miniCtx;
+
+        class Entity { constructor(x, y, r, c) { this.x = x; this.y = y; this.radius = r; this.color = c; this.id = Math.random().toString(36).substr(2, 9); } }
+        class Player extends Entity {
+            constructor(x, y, r, id) { super(x, y, 20, r === 'builder' ? 'var(--builder)' : (r === 'defender' ? 'var(--defender)' : 'var(--mage)')); this.role = r; this.id = id; this.speed = 4; this.bricks = 0; this.maxBricks = 5; this.attackCooldown = 0; this.upgrades = { speed: 1, damage: 1, build: 1 }; }
+            update(dt) {
+                if (this.id !== myId) return;
+                let dx = 0, dy = 0; if (keys['w'] || keys['ArrowUp']) dy -= 1; if (keys['s'] || keys['ArrowDown']) dy += 1; if (keys['a'] || keys['ArrowLeft']) dx -= 1; if (keys['d'] || keys['ArrowRight']) dx += 1;
+                const s = this.speed * (1 + (this.upgrades.speed - 1) * 0.2); if (dx !== 0 || dy !== 0) { const m = Math.sqrt(dx*dx+dy*dy); this.x += (dx/m)*s; this.y += (dy/m)*s; }
+                this.x = Math.max(this.radius, Math.min(WORLD_WIDTH - this.radius, this.x)); this.y = Math.max(this.radius, Math.min(WORLD_HEIGHT - this.radius, this.y));
+                if (this.attackCooldown > 0) this.attackCooldown -= dt; if (mouse.pressed && this.attackCooldown <= 0) this.attack();
+                camera.x = this.x - window.innerWidth/2; camera.y = this.y - window.innerHeight/2; camera.x = Math.max(0, Math.min(WORLD_WIDTH - window.innerWidth, camera.x)); camera.y = Math.max(0, Math.min(WORLD_HEIGHT - window.innerHeight, camera.y));
+                gameState.bricks.forEach((b, i) => { if (Math.hypot(this.x-b.x, this.y-b.y) < this.radius+b.radius && this.bricks < this.maxBricks) { this.bricks++; gameState.bricks.splice(i, 1); if (isHost) broadcastState(); else sendToHost({ type: 'pickup_brick', id: b.id, playerId: myId }); } });
+                if (this.bricks > 0 && this.x > WALL_X - WALL_WIDTH/2 && this.x < WALL_X + WALL_WIDTH/2 && this.y > WALL_Y - 50) { const p = this.bricks*10*this.upgrades.build; if (isHost) { gameState.wallHealth = Math.min(gameState.maxWallHealth, gameState.wallHealth+p); this.bricks = 0; broadcastState(); } else { sendToHost({ type: 'deliver_bricks', count: this.bricks, playerId: myId, buildMult: this.upgrades.build }); this.bricks = 0; } }
+            }
+            attack() {
+                this.attackCooldown = 500; const a = Math.atan2(mouse.y+camera.y-this.y, mouse.x+camera.x-this.x);
+                let ed = null; const d = this.upgrades.damage;
+                if (this.role === 'builder') ed = { x: this.x, y: this.y, radius: 40, type: 'fire', ownerId: this.id, damageMult: d };
+                else if (this.role === 'defender') ed = { x: this.x+Math.cos(a)*40, y: this.y+Math.sin(a)*40, radius: 30, type: 'poison_melee', ownerId: this.id, damageMult: d };
+                else if (this.role === 'mage') ed = { x: this.x, y: this.y, angle: a, speed: 8, color: 'var(--fire)', type: 'fire_ball', ownerId: this.id, damageMult: d };
+                if (ed) { if (isHost) spawnEffectFromData(ed); else sendToHost({ type: 'spawn_effect', effect: ed }); }
+            }
+            draw() {
+                ctx.save(); ctx.translate(this.x-camera.x, this.y-camera.y); ctx.shadowBlur = 15; ctx.shadowColor = this.color; ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(0,0,this.radius,0,Math.PI*2); ctx.fill(); ctx.strokeStyle = 'white'; ctx.lineWidth = 2; ctx.stroke();
+                ctx.fillStyle = 'white'; ctx.font = 'bold 12px Arial'; ctx.textAlign = 'center'; ctx.fillText(this.id === myId ? `YOU (LV ${this.upgrades.speed+this.upgrades.damage+this.upgrades.build-2})` : "PLAYER", 0, -30); ctx.restore();
+            }
+        }
+        class Monster extends Entity {
+            constructor(x, y, h, b = false) { super(x, y, b?40:15, b?'#ff0000':'#ff4444'); this.hp = h; this.maxHp = h; this.speed = b?0.8:1.5; this.isBoss = b; this.status = { fire: 0, poison: 0 }; }
+            update(dt) { if (!isHost) return; const a = Math.atan2(WALL_Y-this.y, WALL_X-this.x); let s = this.speed; if (this.status.poison > 0) s *= 0.5; this.x += Math.cos(a)*s; this.y += Math.sin(a)*s; if (this.y > WALL_Y - 20) { gameState.wallHealth -= (this.isBoss?5:0.5); this.hp = 0; } if (this.status.fire > 0) this.hp -= 0.5; if (this.status.poison > 0) { this.hp -= 0.2*this.status.poison; this.status.poison -= 0.001*dt; if (this.status.poison < 0) this.status.poison = 0; } }
+            draw() { ctx.save(); ctx.translate(this.x-camera.x, this.y-camera.y); if (this.isBoss) { ctx.shadowBlur = 20; ctx.shadowColor = 'red'; } if (this.status.poison > 0) { ctx.fillStyle = 'rgba(57, 255, 20, 0.3)'; ctx.beginPath(); ctx.arc(0,0,this.radius+10,0,Math.PI*2); ctx.fill(); } ctx.fillStyle = this.color; ctx.beginPath(); if (this.isBoss) { for(let i=0; i<8; i++) { let a = i*Math.PI/4; let r = i%2===0?this.radius:this.radius*0.6; ctx.lineTo(Math.cos(a)*r, Math.sin(a)*r); } } else { ctx.moveTo(0,-this.radius); ctx.lineTo(this.radius,this.radius); ctx.lineTo(-this.radius,this.radius); } ctx.closePath(); ctx.fill(); ctx.fillStyle = '#333'; ctx.fillRect(-this.radius,-this.radius-15,this.radius*2,6); ctx.fillStyle = '#ff0000'; ctx.fillRect(-this.radius,-this.radius-15,(this.radius*2)*(this.hp/this.maxHp),6); ctx.restore(); }
+        }
+        class Brick extends Entity { constructor(x, y) { super(x, y, 10, '#f4a460'); } draw() { ctx.save(); ctx.translate(this.x-camera.x, this.y-camera.y); ctx.fillStyle = this.color; ctx.fillRect(-this.radius,-this.radius,this.radius*2,this.radius*2); ctx.strokeStyle = 'rgba(255,255,255,0.5)'; ctx.strokeRect(-this.radius,-this.radius,this.radius*2,this.radius*2); ctx.restore(); } }
+        class Effect { constructor(x, y, r, t, o) { this.x = x; this.y = y; this.radius = r; this.type = t; this.ownerId = o; this.life = t === 'fire' ? 3000 : 200; this.id = Math.random().toString(36).substr(2, 9); } update(dt) { this.life -= dt; if (isHost) { gameState.monsters.forEach(m => { if (Math.hypot(this.x-m.x, this.y-m.y) < this.radius+m.radius) { if (this.type === 'fire') m.status.fire = 1; if (this.type === 'poison_melee') m.status.poison = Math.min(5, m.status.poison + 1); } }); } } draw() { ctx.save(); ctx.translate(this.x-camera.x, this.y-camera.y); if (this.type === 'fire') { const g = ctx.createRadialGradient(0,0,0,0,0,this.radius); g.addColorStop(0, 'rgba(255,77,0,0.6)'); g.addColorStop(1, 'rgba(255,77,0,0)'); ctx.fillStyle = g; } else { ctx.fillStyle = 'rgba(57,255,20,0.4)'; } ctx.beginPath(); ctx.arc(0,0,this.radius,0,Math.PI*2); ctx.fill(); ctx.restore(); } }
+        class Projectile extends Entity { constructor(x, y, a, s, c, t, o) { super(x, y, 8, c); this.angle = a; this.speed = s; this.type = t; this.ownerId = o; this.life = 2000; } update(dt) { this.x += Math.cos(this.angle)*this.speed; this.y += Math.sin(this.angle)*this.speed; this.life -= dt; if (isHost) { gameState.monsters.forEach(m => { if (Math.hypot(this.x-m.x, this.y-m.y) < this.radius+m.radius) { if (this.type === 'fire_ball') { gameState.effects.push(new Effect(this.x, this.y, 60, 'fire', this.ownerId)); this.life = 0; } } }); } } draw() { ctx.save(); ctx.translate(this.x-camera.x, this.y-camera.y); ctx.shadowBlur = 10; ctx.shadowColor = this.color; ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(0,0,this.radius,0,Math.PI*2); ctx.fill(); ctx.restore(); } }
+
+        function handleData(d, c) {
+            if (d.type === 'start_game') startGame();
+            else if (d.type === 'ready') { gameState.players[c.peer] = new Player(WALL_X, WALL_Y - 50, d.role, c.peer); if (isHost) broadcastState(); }
+            else if (d.type === 'state') { const l = gameState.players[myId]; Object.assign(gameState, d.state); gameState.players[myId] = l; updateShopUI(); }
+            else if (d.type === 'input') { if (gameState.players[d.id]) { gameState.players[d.id].x = d.x; gameState.players[d.id].y = d.y; } }
+            else if (d.type === 'spawn_effect') { if (isHost) spawnEffectFromData(d.effect); }
+            else if (d.type === 'pickup_brick') { if (isHost) { gameState.bricks = gameState.bricks.filter(b => b.id !== d.id); if (gameState.players[d.playerId]) gameState.players[d.playerId].bricks++; broadcastState(); } }
+            else if (d.type === 'deliver_bricks') { if (isHost) { const bm = d.buildMult || 1; gameState.wallHealth = Math.min(gameState.maxWallHealth, gameState.wallHealth + d.count*10*bm); if (gameState.players[d.playerId]) gameState.players[d.playerId].bricks = 0; broadcastState(); } }
+            else if (d.type === 'buy_upgrade') { if (isHost) { if (gameState.xp >= d.cost) { gameState.xp -= d.cost; if (gameState.players[d.playerId]) gameState.players[d.playerId].upgrades[d.upgradeType]++; broadcastState(); } } }
+        }
+        function broadcast(d) { if (isMultiplayer) connections.forEach(c => c.send(d)); }
+        function sendToHost(d) { if (isMultiplayer && !isHost) connections[0].send(d); }
+        function broadcastState() { if (isHost) broadcast({ type: 'state', state: gameState }); }
+        function addFeedMessage(m) { const f = document.getElementById('kill-feed'); const d = document.createElement('div'); d.className = 'feed-msg'; d.innerText = m; f.appendChild(d); if (f.children.length > 5) f.removeChild(f.firstChild); setTimeout(() => { if (d.parentNode) d.style.opacity = '0.5'; }, 5000); }
+
+        function startGame() { lobbyEl.classList.add('hidden'); hudEl.classList.remove('hidden'); document.getElementById('player-role').innerText = `ROLE: ${myRole.toUpperCase()}`; isGameRunning = true; if (isHost && gameState.monsters.length === 0) spawnWave(); }
+        function switchRoleMenu() { isGameRunning = false; hudEl.classList.add('hidden'); roleSelectEl.classList.remove('hidden'); lobbyEl.classList.remove('hidden'); }
+        function initGame() {
+            canvas = document.getElementById('gameCanvas'); ctx = canvas.getContext('2d');
+            miniCanvas = document.getElementById('mini-map'); miniCtx = miniCanvas.getContext('2d'); miniCanvas.width = 150; miniCanvas.height = 150;
+            window.onresize = () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }; window.onresize();
+            gameState.players[myId] = new Player(WALL_X, WALL_Y - 50, 'builder', myId); // Temp
+            window.addEventListener('keydown', e => keys[e.key] = true); window.addEventListener('keyup', e => keys[e.key] = false);
+            window.addEventListener('mousedown', e => mouse.pressed = true); window.addEventListener('mouseup', e => mouse.pressed = false);
+            window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+            requestAnimationFrame(gameLoop);
+        }
+        function spawnWave() {
+            const b = (gameState.wave % 5 === 0); if (b) { addFeedMessage("WARNING: BOSS!"); gameState.monsters.push(new Monster(WORLD_WIDTH/2, -100, 500+gameState.wave*50, true)); }
+            const c = 5 + gameState.wave * 2; for (let i = 0; i < c; i++) gameState.monsters.push(new Monster(Math.random()*WORLD_WIDTH, -50-Math.random()*200, 50+gameState.wave*10));
+            for (let i = 0; i < 15; i++) gameState.bricks.push(new Brick(Math.random()*WORLD_WIDTH, Math.random()*(WORLD_HEIGHT-200)));
+        }
+        function toggleShop() { const s = document.getElementById('shop-overlay'); s.style.display = s.style.display === 'block' ? 'none' : 'block'; }
+        function toggleHelp() { const h = document.getElementById('help-overlay'); h.style.display = h.style.display === 'block' ? 'none' : 'block'; }
+        document.getElementById('btn-open-shop').onclick = toggleShop;
+        function buyUpgrade(t) { const p = gameState.players[myId]; if (!p) return; const c = p.upgrades[t]*50; if (gameState.xp >= c) { if (isHost) { gameState.xp -= c; p.upgrades[t]++; addFeedMessage(`${t.toUpperCase()} UP!`); broadcastState(); } else { sendToHost({ type: 'buy_upgrade', upgradeType: t, cost: c, playerId: myId }); p.upgrades[t]++; } } else alert("No XP!"); }
+        function spawnEffectFromData(e) { if (e.angle !== undefined) { let p = new Projectile(e.x, e.y, e.angle, e.speed, e.color, e.type, e.ownerId); p.damageMult = e.damageMult || 1; gameState.effects.push(p); } else { let eff = new Effect(e.x, e.y, e.radius, e.type, e.ownerId); eff.damageMult = e.damageMult || 1; gameState.effects.push(eff); } }
+        function updateShopUI() { const p = gameState.players[myId]; if (!p) return; const b = document.querySelectorAll('.shop-item button'); b[0].innerText = `${p.upgrades.speed*50} XP`; b[1].innerText = `${p.upgrades.damage*50} XP`; b[2].innerText = `${p.upgrades.build*50} XP`; }
+        function gameLoop(ts) { const dt = ts - lastTime; lastTime = ts; if (isGameRunning) update(dt); draw(); requestAnimationFrame(gameLoop); }
+        function update(dt) {
+            if (gameState.wallHealth <= 0) { alert("LOST!"); location.reload(); return; }
+            if (gameState.timeLeft <= 0) { alert(`WON! Kills: ${gameState.totalKills}`); location.reload(); return; }
+            if (gameState.players[myId]) {
+                if (gameState.players[myId].role !== myRole) { const old = gameState.players[myId]; gameState.players[myId] = new Player(old.x, old.y, myRole, myId); gameState.players[myId].upgrades = old.upgrades; }
+                gameState.players[myId].update(dt); if (isMultiplayer) sendToHost({ type: 'input', id: myId, x: gameState.players[myId].x, y: gameState.players[myId].y });
+            }
+            if (isHost) {
+                gameState.timeLeft -= dt; gameState.monsters.forEach((m, i) => { m.update(dt); if (m.hp <= 0) { gameState.monsters.splice(i, 1); gameState.xp += 10; gameState.totalKills++; if (gameState.monsters.length === 0) { gameState.wave++; spawnWave(); addFeedMessage(`WAVE ${gameState.wave}`); } } if (m.y > WALL_Y - 20) screenShake = 10; m.status.fire = 0; });
+                gameState.effects.forEach((e, i) => { e.update(dt); if (e.life <= 0) gameState.effects.splice(i, 1); });
+                if (gameState.xp >= gameState.nextXp) { gameState.level++; gameState.xp -= gameState.nextXp; gameState.nextXp = Math.floor(gameState.nextXp*1.5); addFeedMessage(`LV UP: ${gameState.level}`); }
+                broadcastState();
+            }
+            if (screenShake > 0) screenShake *= 0.9;
+            document.getElementById('wall-health-bar').style.width = (gameState.wallHealth/gameState.maxWallHealth)*100 + '%';
+            document.getElementById('game-info').innerText = `WAVE ${gameState.wave}`; document.getElementById('player-xp').innerText = `XP: ${gameState.xp}`;
+            document.getElementById('player-bricks').innerText = `BRICKS: ${gameState.players[myId]?.bricks || 0}`; document.getElementById('kills-container').innerText = `KILLS: ${gameState.totalKills}`;
+            const s = Math.max(0, Math.floor(gameState.timeLeft/1000)); document.getElementById('timer-value').innerText = `${Math.floor(s/60).toString().padStart(2,'0')}:${(s%60).toString().padStart(2,'0')}`;
+        }
+        function draw() {
+            ctx.fillStyle = varColor('--bg'); ctx.fillRect(0,0,canvas.width,canvas.height); ctx.save();
+            if (screenShake > 1) ctx.translate(Math.random()*screenShake-screenShake/2, Math.random()*screenShake-screenShake/2);
+            ctx.strokeStyle = 'rgba(255,255,255,0.05)'; ctx.lineWidth = 1;
+            for (let x = -camera.x%100; x < canvas.width; x += 100) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,canvas.height); ctx.stroke(); }
+            for (let y = -camera.y%100; y < canvas.height; y += 100) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(canvas.width,y); ctx.stroke(); }
+            ctx.fillStyle = '#444'; ctx.fillRect(WALL_X-WALL_WIDTH/2-camera.x, WALL_Y-camera.y, WALL_WIDTH, WALL_HEIGHT);
+            ctx.strokeStyle = varColor('--accent'); ctx.lineWidth = 2; ctx.strokeRect(WALL_X-WALL_WIDTH/2-camera.x, WALL_Y-camera.y, WALL_WIDTH, WALL_HEIGHT);
+            gameState.bricks.forEach(b => Brick.prototype.draw.call(b)); gameState.effects.forEach(e => (e.angle !== undefined ? Projectile : Effect).prototype.draw.call(e));
+            gameState.monsters.forEach(m => Monster.prototype.draw.call(m)); Object.values(gameState.players).forEach(p => Player.prototype.draw.call(p));
+            ctx.restore(); drawMiniMap();
+        }
+        function drawMiniMap() {
+            miniCtx.fillStyle = 'rgba(0,0,0,0.8)'; miniCtx.fillRect(0,0,miniCanvas.width,miniCanvas.height); const s = miniCanvas.width / WORLD_WIDTH;
+            miniCtx.fillStyle = 'white'; miniCtx.fillRect((WALL_X-WALL_WIDTH/2)*s, WALL_Y*s, WALL_WIDTH*s, WALL_HEIGHT*s);
+            miniCtx.fillStyle = '#f4a460'; gameState.bricks.forEach(b => miniCtx.fillRect(b.x*s, b.y*s, 2, 2));
+            miniCtx.fillStyle = '#ff4444'; gameState.monsters.forEach(m => miniCtx.fillRect(m.x*s, m.y*s, 3, 3));
+            Object.values(gameState.players).forEach(p => { miniCtx.fillStyle = p.color; miniCtx.beginPath(); miniCtx.arc(p.x*s, p.y*s, 3,0,Math.PI*2); miniCtx.fill(); });
+        }
+        function varColor(n) { return getComputedStyle(document.documentElement).getPropertyValue(n).trim(); }
+    </script>
+</body>
+</html>
