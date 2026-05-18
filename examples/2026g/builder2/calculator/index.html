@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3-Digit Multiplication Explainer</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --text-color: #333;
+            --highlight-color: #e74c3c;
+            --step-bg: #f9f9f9;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        input {
+            width: 80px;
+            padding: 10px;
+            font-size: 1.2rem;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            text-align: center;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            border-color: var(--accent-color);
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            font-size: 1.1rem;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        .explanation {
+            margin-top: 2rem;
+            padding: 1rem;
+            border-top: 2px solid #eee;
+            display: none;
+        }
+
+        .math-block {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.8rem;
+            text-align: right;
+            margin: 1rem auto;
+            width: fit-content;
+            line-height: 1.2;
+        }
+
+        .line {
+            border-bottom: 2px solid #333;
+            margin: 5px 0;
+        }
+
+        .partial-product {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.5s ease-out;
+        }
+
+        .partial-product.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .step-description {
+            margin-top: 2rem;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .step-item {
+            margin-bottom: 1rem;
+            padding: 10px;
+            background: var(--step-bg);
+            border-left: 4px solid var(--accent-color);
+            border-radius: 4px;
+            display: none;
+        }
+
+        .highlight {
+            color: var(--highlight-color);
+            font-weight: bold;
+        }
+
+        .carry {
+            font-size: 0.8rem;
+            color: var(--highlight-color);
+            height: 1rem;
+            margin-bottom: -0.5rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Math Explainer</h1>
+    <div class="input-group">
+        <input type="number" id="num1" placeholder="123" value="123">
+        <select id="operator" style="font-size: 1.2rem; padding: 10px; border-radius: 6px; border: 2px solid #ddd;">
+            <option value="mul">&times;</option>
+            <option value="add">+</option>
+            <option value="sub">&minus;</option>
+            <option value="div">&divide;</option>
+        </select>
+        <input type="number" id="num2" placeholder="456" value="456">
+    </div>
+    <button onclick="explain()">Explain Step-by-Step</button>
+
+    <div id="explanation" class="explanation">
+        <div class="math-block" id="math-block">
+            <!-- Math content will be injected here -->
+        </div>
+
+        <div class="step-description" id="step-description">
+            <!-- Step descriptions will be injected here -->
+        </div>
+    </div>
+</div>
+
+<script>
+    function explain() {
+        const n1 = parseFloat(document.getElementById('num1').value);
+        const n2 = parseFloat(document.getElementById('num2').value);
+        const op = document.getElementById('operator').value;
+
+        if (isNaN(n1) || isNaN(n2)) {
+            alert('Please enter valid numbers.');
+            return;
+        }
+
+        const explanationDiv = document.getElementById('explanation');
+        const mathBlock = document.getElementById('math-block');
+        const stepDesc = document.getElementById('step-description');
+
+        explanationDiv.style.display = 'block';
+        mathBlock.innerHTML = '';
+        stepDesc.innerHTML = '';
+
+        let steps = [];
+        let mathHtml = '';
+        let resultIds = [];
+
+        if (op === 'mul') {
+            const n1Int = Math.floor(n1);
+            const n2Int = Math.floor(n2);
+            const n2Str = n2Int.toString();
+            const n2Digits = n2Str.split('').map(Number).reverse();
+            const partialProducts = n2Digits.map((digit, index) => n1Int * digit * Math.pow(10, index));
+            const total = n1Int * n2Int;
+
+            mathHtml = `
+                <div>&nbsp;&nbsp;${n1Int}</div>
+                <div>&times;&nbsp;${n2Int}</div>
+                <div class="line"></div>
+            `;
+            partialProducts.forEach((pp, i) => {
+                mathHtml += `<div id="p${i}" class="partial-product">${pp}</div>`;
+                resultIds.push(`p${i}`);
+            });
+            mathHtml += `<div class="line"></div><div id="total" class="partial-product">${total}</div>`;
+            resultIds.push('total');
+
+            const unitsNames = ['Units', 'Tens', 'Hundreds', 'Thousands', 'Ten Thousands', 'Hundred Thousands', 'Millions'];
+            n2Digits.forEach((digit, index) => {
+                const pv = Math.pow(10, index);
+                steps.push({
+                    title: `Step ${index + 1}: Multiply by ${unitsNames[index] || pv.toLocaleString()}`,
+                    desc: `${n1Int} &times; ${digit * pv} = <b>${partialProducts[index]}</b>`
+                });
+            });
+            steps.push({ title: 'Final Step: Sum', desc: `${partialProducts.join(' + ')} = <b>${total}</b>` });
+
+        } else if (op === 'add') {
+            const res = n1 + n2;
+            mathHtml = `<div>&nbsp;&nbsp;${n1}</div><div>+&nbsp;${n2}</div><div class="line"></div><div id="res" class="partial-product">${res}</div>`;
+            resultIds.push('res');
+            steps.push({ title: 'Addition', desc: `Combine <span class="highlight">${n1}</span> and <span class="highlight">${n2}</span> to get <b>${res}</b>.` });
+
+        } else if (op === 'sub') {
+            const res = n1 - n2;
+            mathHtml = `<div>&nbsp;&nbsp;${n1}</div><div>-&nbsp;${n2}</div><div class="line"></div><div id="res" class="partial-product">${res}</div>`;
+            resultIds.push('res');
+            steps.push({ title: 'Subtraction', desc: `Take <span class="highlight">${n2}</span> away from <span class="highlight">${n1}</span> to get <b>${res}</b>.` });
+
+        } else if (op === 'div') {
+            if (n2 === 0) { alert('Cannot divide by zero'); return; }
+            const res = n1 / n2;
+            mathHtml = `<div style="text-align:center">${n1} &divide; ${n2}</div><div class="line"></div><div id="res" class="partial-product" style="text-align:center">${res.toFixed(2)}</div>`;
+            resultIds.push('res');
+            steps.push({ title: 'Division', desc: `Split <span class="highlight">${n1}</span> into <span class="highlight">${n2}</span> equal parts. Each part is approximately <b>${res.toFixed(2)}</b>.` });
+        }
+
+        mathBlock.innerHTML = mathHtml;
+        steps.forEach((step, i) => {
+            const div = document.createElement('div');
+            div.className = 'step-item';
+            div.id = `step-item-${i}`;
+            div.innerHTML = `<strong>${step.title}</strong><p>${step.desc}</p>`;
+            stepDesc.appendChild(div);
+        });
+
+        let delay = 0;
+        resultIds.forEach((id, i) => {
+            setTimeout(() => {
+                const el = document.getElementById(id);
+                if (el) el.classList.add('show');
+                const stepEl = document.getElementById(`step-item-${i}`);
+                if (stepEl) stepEl.style.display = 'block';
+            }, delay);
+            delay += 800;
+        });
+    }
+</script>
+
+</body>
+</html>

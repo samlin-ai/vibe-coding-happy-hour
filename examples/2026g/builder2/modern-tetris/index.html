@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Tetris</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="side-panel">
+            <div class="panel-box">
+                <h3>HOLD</h3>
+                <canvas id="hold-canvas" width="120" height="120"></canvas>
+            </div>
+            <div class="stats">
+                <div class="stat-item">
+                    <label>SCORE</label>
+                    <span id="score">000000</span>
+                </div>
+                <div class="stat-item">
+                    <label>LEVEL</label>
+                    <span id="level">1</span>
+                </div>
+                <div class="stat-item">
+                    <label>LINES</label>
+                    <span id="lines">0</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-board">
+            <canvas id="game-canvas" width="300" height="600"></canvas>
+            <div id="score-msg" class="score-msg"></div>
+            <div id="overlay" class="overlay">
+                <div class="overlay-content">
+                    <h1 id="overlay-title">TETRIS</h1>
+                    <button id="start-btn">START GAME</button>
+                    <p class="controls-hint">Arrows to Move & Rotate<br>Space to Hard Drop<br>'C' to Hold</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="side-panel">
+            <div class="panel-box">
+                <h3>NEXT</h3>
+                <canvas id="next-canvas" width="120" height="120"></canvas>
+            </div>
+        </div>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html>
