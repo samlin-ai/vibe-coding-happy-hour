@@ -1,4 +1,7 @@
 # Lead Coach Guide: Introduction to AI & Gemini CLI
+
+English | [繁體中文](./lead-coach-guide-intro.zh-TW.md)
+
 **Audience:** All kids (ages 8–14) + breakout coaches | **Format:** Google Meet (everyone) | **Duration:** 30 minutes
 
 ---

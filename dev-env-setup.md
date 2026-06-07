@@ -1,5 +1,7 @@
 # Development Environment Setup
 
+English | [繁體中文](./dev-env-setup.zh-TW.md)
+
 <img src="./res/ai-SandboxIt.png" width="640">
 
 As a coach, you should set up the development environment before the session. A Cloud Sandbox is the best choice because it runs on a VM, so you can allow Gemini CLI to do things automatically ("Allow for this session") without manually approving every action.

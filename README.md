@@ -1,4 +1,7 @@
 # Vibe Coding Happy Hour
+
+English | [繁體中文](./README.zh-TW.md)
+
 This is a course to grow K12 students to become AI-native builders, starting from vibe coding their first game.
 
 <img src="./res/csequityai.png" width="240">

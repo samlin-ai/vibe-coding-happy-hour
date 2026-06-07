@@ -1,4 +1,7 @@
 # Coach Guide: Kids' First Vibe Coding Game with Gemini CLI
+
+English | [繁體中文](./coach-guide-gemini-cli.zh-TW.md)
+
 **Audience:** Kids (ages 8–14) + breakout coach | **Team size:** 3–5 kids | **Duration:** 60 minutes
 
 ---
