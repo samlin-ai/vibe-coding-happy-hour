@@ -2,7 +2,7 @@
 
 [English](./README.md) | 繁體中文
 
-這是一門幫助 K12 學生成長為 AI 原生創作者（AI-native builders）的課程，從 vibe coding 他們的第一款遊戲開始。
+這是一門幫助中小學生成長為 AI 原生創作者（AI-native builders）的課程，從 vibe coding 他們的第一款遊戲開始。
 
 <img src="./res/csequityai.png" width="240">
 
@@ -11,13 +11,13 @@
 ## 目標
 
 1. 透過開心做遊戲，點燃孩子的好奇心。
-2. 累積實作經驗——不只是 vibe coding，還有 AI 輔助理解（AI-augmented understanding），為美麗新世界做好準備。
+2. 累積實作經驗——不只是 vibe coding，還有 AI 輔助理解（AI-augmented understanding），為AI新世界做好準備。
 3. 以 3–5 人小組練習技術協作能力。
 4. 透過成果發表（Show & Tell）練習技術溝通能力。
 
 ### 範例
 
-看看這些遊戲，了解孩子們會做出什麼：https://samlin-ai.github.io/vibe-coding-happy-hour/
+看看這些孩子們做的遊戲：https://samlin-ai.github.io/vibe-coding-happy-hour/
 
 ### 為什麼使用 Gemini CLI？
 
@@ -32,7 +32,7 @@
 <img src="./res/agenda.png" width="640">
 
 1. **30 分鐘 — AI 與 Gemini CLI 入門**：全體在 Google Meet 上進行。
-    - 主帶領教練依照[主帶領教練指南](./lead-coach-guide-intro.zh-TW.md)開場。
+    - 主帶領教練依照[主教練指南](./lead-coach-guide-intro.zh-TW.md)開場。
 2. **60 分鐘 — 分組時段：Vibe Coding 你的第一款遊戲**
     - 3–5 位學生搭配 1 位教練，實體或在線上分組討論室進行。
     - 教練依照[教練指南](./coach-guide-gemini-cli.zh-TW.md)帶領小組打造第一款遊戲。
