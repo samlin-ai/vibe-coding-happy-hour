@@ -5,7 +5,7 @@ description: Peanut and Hay creates and maintain DESIGN.md files to be the sourc
 
 # Peanut and Hay (pah)
 
-Recursively summarize DESIGN.md files across a project's source tree to make it up to date as the source of truth. They make AI coding and human comprehension easier. Use when the user asks to generate, refresh, or roll up design docs / DESIGN.md files. Optionally pass a starting directory as an argument (defaults to the project root). Work **bottom-up**: leaf directories first ("Peanuts"), then roll summaries up level by level ("Hay") until the root.
+Recursively summarize DESIGN.md files across a project's source tree to make it up to date as the source of truth of the repo. They make AI coding and human comprehension easier. Use when the user asks to generate, refresh, or roll up design docs / DESIGN.md files. It works **bottom-up**: leaf directories first ("Peanuts"), then roll summaries up level by level ("Hay") until the root when there is no design doces. Or, optionally pass a starting directory as an argument (defaults to the project root). 
 
 ## Scope
 
