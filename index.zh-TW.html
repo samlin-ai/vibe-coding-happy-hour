@@ -178,6 +178,22 @@
       height: 14px;
     }
 
+    .playlist-embed {
+      max-width: 900px;
+      margin: 0 auto 1.5rem;
+      aspect-ratio: 16 / 9;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .playlist-embed iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
     footer {
       text-align: center;
       margin-top: 4rem;
@@ -279,6 +295,10 @@
 </main>
 
 <h2 id="google-pilot-run" class="section-title">Google 試練場 - 2026 年 5 月 17 日</h2>
+
+<div class="playlist-embed">
+  <iframe src="https://www.youtube.com/embed/videoseries?list=PLIO7iIc3lbUfSGQaJ98DEq-yD5rhhJUmC" title="學生成果分享播放清單" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 <main class="grid">
 
